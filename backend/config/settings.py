@@ -2,14 +2,16 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+import sys
 
 load_dotenv()
-
 BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'changeme')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
+AUTH_USER_MODEL = 'users.Usuario'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -20,7 +22,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'apps.users',
+    'users',
+    'core',
+    'employees',
+    'attendance',
+    'leaves',
+
 ]
 
 MIDDLEWARE = [
@@ -91,9 +98,13 @@ REST_FRAMEWORK = {
 
 from datetime import timedelta
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'AUTH_HEADER_TYPES': ('Bearer',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # El token dura 1 hora
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # El refresh dura 1 día
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'AUTH_HEADER_TYPES': ('Bearer',),                # Angular enviará "Bearer <token>"
+    'USER_ID_FIELD': 'id',                           # Usamos UUID
+    'USER_ID_CLAIM': 'user_id',
 }
 
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:4200').split(',')
