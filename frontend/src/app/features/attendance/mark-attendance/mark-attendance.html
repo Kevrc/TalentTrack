@@ -1,0 +1,22 @@
+<div class="attendance-container">
+  <h2>Registrar Asistencia</h2>
+
+  <div class="status-box">
+    <p>
+      Estado GPS: <strong>{{ mensaje }}</strong>
+    </p>
+    <p *ngIf="ubicacion">Lat: {{ ubicacion.lat | number : '1.4-4' }}</p>
+  </div>
+
+  <div class="input-group">
+    <label>Evidencia (Selfie):</label>
+    <input type="file" accept="image/*" capture="user" (change)="onFileSelected($event)" />
+  </div>
+
+  <div class="actions" *ngIf="!cargando">
+    <button (click)="enviarMarcacion('CHECK_IN')" class="btn-entrada">Entrada</button>
+    <button (click)="enviarMarcacion('CHECK_OUT')" class="btn-salida">Salida</button>
+  </div>
+
+  <p *ngIf="cargando">Enviando datos...</p>
+</div>

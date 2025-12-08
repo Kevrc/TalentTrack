@@ -1,0 +1,76 @@
+<div class="manager-container">
+    <header>
+        <h1>Panel de Manager 👔</h1>
+        <p>Gestión de equipo y control personal</p>
+    </header>
+
+    <section class="personal-actions">
+        <h2>Mi Asistencia</h2>
+        <div class="actions-grid">
+            <button class="btn-action" (click)="irAMarcar()">
+                📍 Registrar Entrada/Salida
+            </button>
+            <button class="btn-info" (click)="irAHistorial()">
+                📅 Mi Historial
+            </button>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="team-overview">
+        <h2>Actividad de mi Equipo (Hoy)</h2>
+
+        <div *ngIf="cargando">Cargando equipo...</div>
+        <div *ngIf="!cargando && equipoLogs.length === 0">
+            Nadie de tu equipo ha marcado hoy.
+        </div>
+
+        <table *ngIf="equipoLogs.length > 0">
+            <thead>
+                <tr>
+                    <th>Empleado</th>
+                    <th>Evento</th>
+                    <th>Hora</th>
+                    <th>Ubicación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of equipoLogs">
+                    <td>
+                        <div class="empleado-cell" style="display: flex; align-items: center; gap: 10px;">
+                            <img *ngIf="log.empleado_info?.foto_url" [src]="log.empleado_info.foto_url"
+                                style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                            <span *ngIf="!log.empleado_info?.foto_url">👤</span>
+
+                            <div>
+                                <strong>{{ log.empleado_info?.nombres }} {{ log.empleado_info?.apellidos }}</strong>
+                                <br>
+                                <small style="color: gray;">ID: {{ log.empleado_info?.id }}</small>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <span [class.chk-in]="log.tipo === 'CHECK_IN'" [class.chk-out]="log.tipo === 'CHECK_OUT'"
+                            style="padding: 4px 8px; border-radius: 4px; font-weight: bold;">
+                            {{ log.tipo === 'CHECK_IN' ? 'Entrada' : 'Salida' }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {{ log.registrado_el | date:'shortTime' }}
+                    </td>
+
+                    <td>
+                        <a *ngIf="log.gps_lat"
+                            [href]="'https://www.google.com/maps/search/?api=1&query=' + log.gps_lat + ',' + log.gps_lng"
+                            target="_blank" style="text-decoration: none;">
+                            🗺️ Ver
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

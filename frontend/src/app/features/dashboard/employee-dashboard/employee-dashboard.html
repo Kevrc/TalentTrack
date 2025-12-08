@@ -1,0 +1,26 @@
+<div class="dashboard-container">
+    <header class="welcome-banner">
+        <h1>Hola, {{ authService.currentUser()?.empleado_datos?.nombres }} 👋</h1>
+        <p>¿Listo para trabajar hoy?</p>
+    </header>
+
+    <div class="actions-grid">
+        <div class="card action-card" (click)="irAMarcar()">
+            <div class="icon">📍</div>
+            <h3>Registrar Asistencia</h3>
+            <p>Entrada / Salida / Pausa</p>
+        </div>
+
+        <div class="card info-card" (click)="irAHistorial()">
+            <div class="icon">📅</div>
+            <h3>Mi Historial</h3>
+            <p>Revisa tus horas trabajadas</p>
+        </div>
+
+        <div class="card info-card">
+            <div class="icon">🏖️</div>
+            <h3>Vacaciones</h3>
+            <p>Próximamente...</p>
+        </div>
+    </div>
+</div>
