@@ -27,4 +27,7 @@ export class EmployeeDashboard {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+  irASolicitarPermiso() {
+    this.router.navigate(['/solicitar-permiso']);
+  }
 }

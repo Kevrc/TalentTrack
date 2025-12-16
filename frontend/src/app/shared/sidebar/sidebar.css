@@ -1,0 +1,144 @@
+:host {
+  display: block;
+  height: 100vh;
+  /* Fija el sidebar a la izquierda si es necesario */
+  position: sticky; 
+  top: 0;
+}
+
+.sidebar {
+  width: 260px; /* Ancho fijo */
+  height: 100%;
+  background-color: #ffffff;
+  border-right: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- LOGO --- */
+.logo-container {
+  margin-bottom: 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #D51F36; /* Rojo TalentTrack */
+  letter-spacing: -0.5px;
+}
+
+/* --- MENÚ --- */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1; /* Ocupa el espacio disponible */
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  text-decoration: none;
+  color: #64748b; /* Gris oscuro para inactivos */
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.menu-item svg {
+  stroke-width: 2px;
+}
+
+.menu-item:hover {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+/* ESTADO ACTIVO (ROJO) */
+.menu-item.active {
+  background-color: #D51F36;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(213, 31, 54, 0.3); /* Sombra roja suave */
+}
+
+/* Cuando está activo, aseguramos que el SVG herede el color blanco */
+.menu-item.active svg {
+  stroke: #ffffff;
+}
+
+/* --- FOOTER --- */
+.sidebar-footer {
+  margin-top: auto; /* Empuja hacia abajo */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-link {
+  justify-content: space-between; /* Para separar el badge */
+  padding: 12px 18px;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Badge roja de notificaciones */
+.badge {
+  background-color: #D51F36;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- THEME TOGGLE --- */
+.theme-toggle {
+  background-color: #f1f5f9;
+  border-radius: 30px;
+  padding: 4px;
+  display: flex;
+  margin-top: 15px;
+}
+
+.toggle-btn {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 8px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.toggle-btn.active {
+  background-color: #ffffff;
+  color: #1e293b;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}

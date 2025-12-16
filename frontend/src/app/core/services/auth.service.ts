@@ -23,7 +23,7 @@ export interface UserProfile {
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}`; // http://localhost:8000/api/token/
+  private apiUrl = `${environment.apiUrl}`; // http://localhost:8000/api
 
   currentUser = signal<UserProfile | null>(null);
 

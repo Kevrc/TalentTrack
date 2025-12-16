@@ -73,4 +73,29 @@
             </tbody>
         </table>
     </section>
+    <section class="approvals-section" *ngIf="solicitudesPendientes.length > 0">
+        <h2 style="color: #d9534f;">⚠️ Solicitudes Pendientes ({{ solicitudesPendientes.length }})</h2>
+
+        <div class="cards-container">
+            <div *ngFor="let sol of solicitudesPendientes" class="approval-card">
+                <div class="header">
+                    <strong>{{ sol.empleado_info?.nombres }} {{ sol.empleado_info?.apellidos }}</strong> pide:
+                    <span class="badge">{{ sol.nombre_tipo }}</span>
+                </div>
+
+                <p class="dates">
+                    📅 Del {{ sol.fecha_inicio | date }} al {{ sol.fecha_fin | date }}
+                    ({{ sol.dias_solicitados }} días)
+                </p>
+
+                <p class="motivo">"{{ sol.motivo }}"</p>
+
+                <div class="actions">
+                    <button (click)="gestionarSolicitud(sol.id, 'APROBADO')" class="btn-approve">✅ Aprobar</button>
+                    <button (click)="gestionarSolicitud(sol.id, 'RECHAZADO')" class="btn-reject">❌ Rechazar</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </section>
 </div>

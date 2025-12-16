@@ -1,0 +1,280 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Contenedor General */
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* --- LADO IZQUIERDO --- */
+.left-panel {
+  width: 50%;
+  display: flex;
+  flex-direction: column; /* Apila imagen arriba y rojo abajo */
+  padding: 0;
+  margin: 0;
+
+}
+
+/* 1. Sección de Imagen (Ocupa ~65% de altura) */
+.image-section {
+  flex: 90; /* Proporción flexible */
+  position: relative;
+  background-image: url('../../../../assets/images/login-office.png'); 
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  margin: 0;
+}
+
+/* Indicadores (barritas) sobre la imagen */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px; /* Pegado al borde inferior de la foto */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-indicators span {
+  width: 30px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+}
+
+.carousel-indicators span.active {
+  background: #ffffff;
+}
+
+/* 2. Sección Roja de Texto (Ocupa ~35% de altura) */
+.info-section {
+  flex: 35; /* Proporción flexible */
+  background-color: #D51F36; /* Tu rojo corporativo */
+  color: #ffffff;
+  padding: 3rem 4rem;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-content .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.brand-content h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 1rem 0;
+}
+
+.brand-content p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* --- LADO DERECHO --- */
+.right-panel {
+  width: 50%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrar verticalmente */
+  align-items: center;
+  position: relative;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+
+/* Flecha decorativa */
+.arrow-decoration {
+  position: absolute;
+  top: -60px;
+  left: -80px;
+  opacity: 0.5;
+  transform: rotate(-10deg);
+}
+
+.form-wrapper h2 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.form-group .required {
+  color: #D51F36;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  border-color: #D51F36;
+}
+
+.form-group input::placeholder {
+  color: #94a3b8;
+}
+
+/* Toggle Password */
+.password-input-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+/* Opciones inferiores */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.forgot-link {
+  color: #64748b;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* Botón */
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  background-color: #f1f5f9; /* Color gris claro (inactivo) */
+  color: #94a3b8;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #111827;
+  color: #A0AEC0;
+}
+
+/* Footer */
+footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  margin-left: 10px;
+}
+.brand-content .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espacio entre el icono y las letras */
+  margin-bottom: 1.5rem;
+  height: 40px; /* Define una altura fija para el logo */
+}
+.mobile-logo-container {
+  display: none;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .left-panel {
+    display: none;
+  }
+  .right-panel {
+    width: 100%;
+  }
+  .arrow-decoration {
+    display: none;
+  }
+  .mobile-logo-container {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;
+    margin-bottom: 2rem; /* Espacio antes del título H2 */
+    width: 100%;
+  }
+
+  /* Ajustamos el tamaño de la imagen del logo */
+  .logo-red {
+    height: 50px; /* Ajusta esta altura según necesites */
+    width: auto;
+  }
+
+}

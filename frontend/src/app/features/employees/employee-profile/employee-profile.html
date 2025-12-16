@@ -1,0 +1,167 @@
+<div class="profile-container" *ngIf="!cargando && empleado">
+
+    <div class="top-bar">
+        <button class="btn-back" (click)="volver()">← Volver al Directorio</button>
+    </div>
+
+    <div class="profile-layout">
+
+        <aside class="profile-card">
+            <div class="card-header">
+                <div class="avatar-large">
+                    <img *ngIf="empleado.foto_url" [src]="empleado.foto_url" alt="Foto">
+                    <span *ngIf="!empleado.foto_url">{{ empleado.nombres.charAt(0) }}{{ empleado.apellidos.charAt(0)
+                        }}</span>
+                </div>
+
+                <h2>{{ empleado.nombres }} {{ empleado.apellidos }}</h2>
+                <p class="role-text">{{ empleado.puesto?.nombre || 'Sin Cargo' }}</p>
+
+                <div class="status-badge">ACTIVO</div>
+            </div>
+
+            <div class="card-body">
+                <div class="contact-item">
+                    <span class="icon">✉️</span>
+                    <span>{{ empleado.email }}</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <span>{{ empleado.telefono || '0984123102' }}</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">🌐</span>
+                    <span>GMT -05:00</span>
+                </div>
+
+                <hr class="divider">
+
+                <div class="hierarchy-info">
+                    <div class="hierarchy-item">
+                        <small>Departamento</small>
+                        <p>{{ empleado.unidad?.nombre || 'General' }}</p>
+                    </div>
+                    <div class="hierarchy-item">
+                        <small>Oficina</small>
+                        <p>Sede Central</p>
+                    </div>
+                    <div class="hierarchy-item" *ngIf="empleado.manager">
+                        <small>Jefe Directo</small>
+                        <div class="manager-chip">
+                            <div class="mini-avatar">M</div>
+                            <span>{{ empleado.manager.nombres }} {{ empleado.manager.apellidos }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-action">Acción ▾</button>
+            </div>
+        </aside>
+
+
+        <main class="details-card">
+
+            <nav class="tabs-nav">
+                <button [class.active]="activeTab === 'general'" (click)="cambiarTab('general')">General</button>
+                <button [class.active]="activeTab === 'cargo'" (click)="cambiarTab('cargo')">Cargo</button>
+                <button [class.active]="activeTab === 'nomina'" (click)="cambiarTab('nomina')">Nómina</button>
+                <button [class.active]="activeTab === 'documentos'"
+                    (click)="cambiarTab('documentos')">Documentos</button>
+                <button [class.active]="activeTab === 'config'" (click)="cambiarTab('config')">Configuración</button>
+            </nav>
+
+            <div class="tab-content" *ngIf="activeTab === 'general'">
+
+                <section class="info-section">
+                    <div class="section-header">
+                        <h3>Información personal</h3>
+                        <button class="btn-icon">✏️</button>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-group">
+                            <label>Nombre completo</label>
+                            <p>{{ empleado.nombres }} {{ empleado.apellidos }}</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Género</label>
+                            <p>Femenino</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Fecha de nacimiento</label>
+                            <p>23 May 1997</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Estado civil</label>
+                            <p>Soltera</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Nacionalidad</label>
+                            <p>Ecuatoriana</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Correo electrónico</label>
+                            <p>{{ empleado.email }}</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Número de celular</label>
+                            <p>0984123102</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="info-section">
+                    <div class="section-header">
+                        <h3>Dirección</h3>
+                        <button class="btn-icon">✏️</button>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-group">
+                            <label>Dirección principal</label>
+                            <p>Av. Eugenio Espejo</p>
+                        </div>
+                        <div class="info-group">
+                            <label>País</label>
+                            <p>Ecuador</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Ciudad</label>
+                            <p>Loja</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Código Postal</label>
+                            <p>110101</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="info-section">
+                    <div class="section-header">
+                        <h3>Contacto de emergencia</h3>
+                        <button class="btn-icon">✏️</button>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-group">
+                            <label>Nombre completo</label>
+                            <p>Mario Macas</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Relación</label>
+                            <p>Padre</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Número de celular</label>
+                            <p>0987654321</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="tab-content" *ngIf="activeTab !== 'general'">
+                <p class="empty-msg">Contenido de {{ activeTab }} próximamente...</p>
+            </div>
+
+        </main>
+    </div>
+</div>

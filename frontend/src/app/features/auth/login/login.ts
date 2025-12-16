@@ -7,35 +7,36 @@ import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Importante para usar ngModel
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrls: ['./login.css'], // Apuntando al archivo CSS normal
 })
 export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
   credentials = { email: '', password: '' };
-  errorMessage = '';
+  rememberMe = false;
+  showPassword = false;
 
-  // login.component.ts
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   onSubmit() {
     this.authService.login(this.credentials).subscribe({
       next: (userProfile) => {
-        // LÓGICA DE REDIRECCIÓN POR ROL
-        if (userProfile.rol === 'RRHH' || userProfile.rol === 'SUPERADMIN') {
+        if (userProfile.rol === 'SUPERADMIN' || userProfile.rol === 'RRHH') {
           this.router.navigate(['/admin']);
         } else if (userProfile.rol === 'MANAGER') {
           this.router.navigate(['/manager']);
         } else {
-          // Empleados y Managers (por ahora) van al home normal
           this.router.navigate(['/home']);
         }
       },
       error: (err) => {
         console.error(err);
-        this.errorMessage = 'Credenciales incorrectas';
+        alert('Credenciales incorrectas');
       },
     });
   }

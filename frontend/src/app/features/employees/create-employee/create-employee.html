@@ -1,0 +1,78 @@
+<div class="admin-form-container">
+    <h2>📝 Contratar Nuevo Empleado</h2>
+
+    <form (submit)="onSubmit()">
+
+        <div class="row">
+            <div class="group">
+                <label>Nombres</label>
+                <input [(ngModel)]="form.nombres" name="nombres" required>
+            </div>
+            <div class="group">
+                <label>Apellidos</label>
+                <input [(ngModel)]="form.apellidos" name="apellidos" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="group">
+                <label>Email (Usuario)</label>
+                <input type="email" [(ngModel)]="form.email" name="email" required>
+            </div>
+            <div class="group">
+                <label>Contraseña Inicial</label>
+                <input type="password" [(ngModel)]="form.password" name="password" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="group">
+                <label>Documento ID</label>
+                <input [(ngModel)]="form.documento" name="documento" required>
+            </div>
+            <div class="group">
+                <label>Rol en Sistema</label>
+                <select [(ngModel)]="form.rol" name="rol" required>
+                    <option value="EMPLEADO">Empleado</option>
+                    <option value="MANAGER">Manager</option>
+                    <option value="RRHH">RRHH / Admin</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="group">
+                <label>Unidad / Área</label>
+                <select [(ngModel)]="form.unidad" name="unidad">
+                    <option value="">-- Ninguna --</option>
+                    <option *ngFor="let u of unidades" [value]="u.id">
+                        {{ u.nombre }} ({{ u.tipo }})
+                    </option>
+                </select>
+            </div>
+
+            <div class="group">
+                <label>Puesto de Trabajo</label>
+                <select [(ngModel)]="form.puesto" name="puesto">
+                    <option value="">-- Ninguno --</option>
+                    <option *ngFor="let p of puestos" [value]="p.id">
+                        {{ p.nombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="group">
+                <label>Jefe Inmediato (Manager)</label>
+                <select [(ngModel)]="form.manager" name="manager">
+                    <option value="">-- Sin Jefe --</option>
+                    <option *ngFor="let m of managers" [value]="m.id">
+                        {{ m.nombres }} {{ m.apellidos }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" [disabled]="cargando">Contratar</button>
+    </form>
+</div>

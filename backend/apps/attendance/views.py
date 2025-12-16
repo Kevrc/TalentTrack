@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-
+from datetime import date
 from .models import EventoAsistencia
 from .serializers import EventoAsistenciaSerializer
 from employees.models import Empleado

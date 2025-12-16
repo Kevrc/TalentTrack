@@ -1,0 +1,65 @@
+<div class="directory-container">
+
+    <header class="page-header">
+        <div class="titles">
+            <h2>Directorio de Personal</h2>
+            <p>Gestiona los colaboradores de tu equipo/empresa</p>
+        </div>
+
+        <button class="btn-primary" (click)="irANuevo()">
+            + Nuevo Empleado
+        </button>
+    </header>
+
+    <div class="search-bar">
+        <input type="text" [(ngModel)]="terminoBusqueda" (keyup.enter)="buscar()"
+            placeholder="Buscar por nombre, cédula o cargo...">
+        <button (click)="buscar()">🔍</button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="styled-table" *ngIf="!cargando && empleados.length > 0">
+            <thead>
+                <tr>
+                    <th>Colaborador</th>
+                    <th>Cargo / Unidad</th>
+                    <th>Estado</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let emp of empleados">
+                    <td>
+                        <div class="user-info">
+                            <div class="avatar-circle">
+                                {{ emp.nombres.charAt(0) }}{{ emp.apellidos.charAt(0) }}
+                            </div>
+                            <div>
+                                <strong>{{ emp.nombres }} {{ emp.apellidos }}</strong>
+                                <br>
+                                <small class="text-muted">{{ emp.email }}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        {{ emp.puesto?.nombre || 'Sin puesto' }} <br>
+                        <small>{{ emp.unidad?.nombre || 'Sin unidad' }}</small>
+                    </td>
+                    <td>
+                        <span class="badge active">Activo</span>
+                    </td>
+                    <td>{{ emp.fecha_ingreso | date }}</td>
+                    <td>
+                        <button class="btn-icon" (click)="irAEditar(emp.id)">✏️</button>
+                        <button class="btn-icon delete" (click)="eliminar(emp.id)">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="!cargando && empleados.length === 0" class="empty-state">
+            <p>No se encontraron empleados con ese criterio.</p>
+        </div>
+    </div>
+</div>

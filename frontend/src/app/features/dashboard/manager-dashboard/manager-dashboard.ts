@@ -3,7 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AttendanceService } from '../../attendance/services/attendance.service';
 import { AuthService } from '../../../core/services/auth.service';
-
+import { LeavesService } from '../../leaves/services/leaves.service';
 @Component({
   selector: 'app-manager-dashboard',
   standalone: true,
@@ -16,7 +16,8 @@ export class ManagerDashboard implements OnInit {
   private attendanceService = inject(AttendanceService);
   private router = inject(Router);
   public authService = inject(AuthService);
-
+  private leavesService = inject(LeavesService);
+  solicitudesPendientes: any[] = [];
   // Estado
   equipoLogs: any[] = [];
   cargando = true;
@@ -24,6 +25,7 @@ export class ManagerDashboard implements OnInit {
 
   ngOnInit() {
     this.cargarDatosEquipo();
+    this.cargarPendientes();
   }
 
   cargarDatosEquipo() {
@@ -53,5 +55,23 @@ export class ManagerDashboard implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+  cargarPendientes() {
+    this.leavesService.getPendientesEquipo().subscribe({
+      next: (data) => (this.solicitudesPendientes = data),
+      error: (err) => console.error('Error cargando solicitudes:', err),
+    });
+  }
+
+  gestionarSolicitud(id: string, accion: 'APROBADO' | 'RECHAZADO') {
+    if (!confirm(`¿Estás seguro de ${accion} esta solicitud?`)) return;
+
+    this.leavesService.responderSolicitud(id, accion).subscribe({
+      next: () => {
+        alert(`Solicitud ${accion} correctamente.`);
+        this.cargarPendientes(); // Recargar la lista para que desaparezca
+      },
+      error: (err) => alert('Error al procesar la solicitud.'),
+    });
   }
 }

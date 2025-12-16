@@ -1,0 +1,178 @@
+/* Layout Global */
+.profile-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  color: #1e293b;
+}
+
+.top-bar { margin-bottom: 20px; }
+.btn-back { border: none; background: none; color: #64748b; cursor: pointer; font-weight: 500; }
+
+.profile-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start; /* Para que la altura se ajuste al contenido */
+}
+
+/* === CARD IZQUIERDA === */
+.profile-card {
+  width: 300px; /* Ancho fijo como en la imagen */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  padding: 30px 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.avatar-large {
+  width: 100px;
+  height: 100px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #94a3b8;
+  overflow: hidden;
+}
+
+.avatar-large img { width: 100%; height: 100%; object-fit: cover; }
+
+.profile-card h2 { margin: 0; font-size: 1.2rem; font-weight: 700; }
+.role-text { color: #64748b; margin: 5px 0 15px; font-size: 0.9rem; }
+
+.status-badge {
+  display: inline-block;
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #475569;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  justify-content: center; /* O left si prefieres */
+}
+
+.divider { border: 0; border-top: 1px solid #f1f5f9; margin: 20px 0; }
+
+.hierarchy-item { text-align: left; margin-bottom: 15px; }
+.hierarchy-item small { color: #94a3b8; font-size: 0.8rem; display: block; margin-bottom: 4px; }
+.hierarchy-item p { margin: 0; font-weight: 500; font-size: 0.95rem; }
+
+.manager-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  padding: 6px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.mini-avatar { width: 24px; height: 24px; background: #cbd5e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+
+.btn-action {
+  width: 100%;
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* === CARD DERECHA (TABS) === */
+.details-card {
+  flex: 1; /* Ocupa el resto del espacio */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+/* Navegación Tabs */
+.tabs-nav {
+  display: flex;
+  border-bottom: 1px solid #f1f5f9;
+  padding: 0 20px;
+}
+
+.tabs-nav button {
+  background: none;
+  border: none;
+  padding: 20px 15px;
+  font-size: 0.95rem;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.tabs-nav button:hover { color: #1e293b; }
+.tabs-nav button.active {
+  color: #D51F36; /* Tu color rojo */
+  border-bottom-color: #D51F36;
+}
+
+.tab-content { padding: 30px; }
+
+/* Secciones de Info */
+.info-section {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #f8fafc;
+  padding-bottom: 20px;
+}
+.info-section:last-child { border-bottom: none; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.section-header h3 { font-size: 1.1rem; font-weight: 600; margin: 0; }
+.btn-icon { background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 1.1rem; }
+
+/* Grid para los datos */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 Columnas */
+  gap: 20px;
+}
+
+.info-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.info-group p {
+  margin: 0;
+  font-weight: 500;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .profile-layout { flex-direction: column; }
+  .profile-card { width: 100%; box-sizing: border-box; }
+  .info-grid { grid-template-columns: 1fr; } /* 1 Columna en móvil */
+}

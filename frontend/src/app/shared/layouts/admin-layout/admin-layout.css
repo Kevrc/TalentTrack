@@ -1,0 +1,20 @@
+.layout-wrapper {
+  display: flex;
+  height: 100vh; /* Ocupa toda la pantalla */
+  width: 100vw;
+  overflow: hidden; /* Evita doble scroll */
+}
+
+.main-content {
+  flex: 1; /* Toma todo el espacio restante a la derecha */
+  background-color: #f8fafc; /* Color de fondo gris claro de tus diseños */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Permite scroll solo en el contenido, no en el sidebar */
+  position: relative;
+}
+
+.page-container {
+  padding: 30px; /* Espacio alrededor del contenido */
+  min-height: 100%;
+}
