@@ -18,3 +18,33 @@
   padding: 30px; /* Espacio alrededor del contenido */
   min-height: 100%;
 }
+
+/* Estilos para el sidebar */
+.layout-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden; /* Evita doble scroll */
+  background-color: #F8F9FE; /* Color de fondo gris claro típico de dashboards */
+}
+
+/* El sidebar no necesita estilos aquí si ya tiene su propio width en su componente,
+   pero aseguramos que no se encoja */
+.sidebar-area {
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.main-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Para que solo scrollee el contenido interno */
+}
+
+.content-wrapper {
+  flex-grow: 1;
+  overflow-y: auto; /* Scroll vertical solo en el contenido */
+  padding: 2rem;
+  /* Aquí es donde se pintarán tus pantallas de dashboard */
+}

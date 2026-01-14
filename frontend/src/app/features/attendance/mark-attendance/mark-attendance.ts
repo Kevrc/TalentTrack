@@ -27,8 +27,8 @@ export class MarkAttendanceComponent {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           this.ubicacion = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
+            lat: parseFloat(position.coords.latitude.toFixed(8)),
+            lng: parseFloat(position.coords.longitude.toFixed(8)),
           };
           this.mensaje = 'Ubicación lista.';
         },

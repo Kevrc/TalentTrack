@@ -25,43 +25,56 @@ const authGuard = () => {
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
-  // Rutas protegidas
+  // --- 1. GRUPO ADMIN (Aquí arreglamos el error) ---
+  // Todas estas rutas empezarán con /admin/...
   {
     path: 'admin',
     component: AdminLayout,
     canActivate: [authGuard],
     children: [
-      {
-        path: 'dashboard',
-        component: AdminDashboard,
-        canActivate: [authGuard],
-      },
-      { path: 'nuevo-empleado', component: CreateEmployee, canActivate: [authGuard] },
-      { path: 'editar-empleado/:id', component: EditEmployee, canActivate: [authGuard] },
-      {
-        path: 'perfil-empleado/:id',
-        component: EmployeeProfile,
-        canActivate: [authGuard],
-      },
+      { path: 'dashboard', component: AdminDashboard }, // /admin/dashboard
+      { path: 'nuevo-empleado', component: CreateEmployee }, // /admin/nuevo-empleado (¡Esto arregla tu error!)
+      { path: 'editar-empleado/:id', component: EditEmployee },
+      { path: 'perfil-empleado/:id', component: EmployeeProfile },
+      { path: 'directorio', component: EmployeeList },
+      { path: 'asistencia', component: HistoryComponent }, // Ejemplo: Historial global
+      { path: 'documentos', component: RequestLeave }, // Ejemplo temporal
+      // Redirección por defecto dentro de admin
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 
+  // --- 2. GRUPO MANAGER ---
+  // Rutas que empiezan con /manager/...
   {
     path: 'manager',
-    component: ManagerDashboard,
+    component: AdminLayout, // Reutilizamos el mismo layout visual
     canActivate: [authGuard],
+    children: [
+      { path: 'dashboard', component: ManagerDashboard },
+      { path: 'equipo', component: EmployeeList }, // Manager ve su equipo aquí
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'perfil', component: EmployeeProfile }, // Perfil propio
+    ],
   },
+
+  // --- 3. GRUPO EMPLEADO ---
+  // Rutas que empiezan con /portal/...
   {
-    path: 'home',
-    component: EmployeeDashboard,
+    path: 'portal',
+    component: AdminLayout,
     canActivate: [authGuard],
+    children: [
+      { path: 'home', component: EmployeeDashboard },
+      { path: 'marcar', component: MarkAttendanceComponent },
+      { path: 'historial', component: HistoryComponent },
+      { path: 'solicitar-permiso', component: RequestLeave },
+      { path: 'perfil', component: EmployeeProfile }, // Perfil propio
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ],
   },
 
-  // Funcionalidades
-  { path: 'marcar', component: MarkAttendanceComponent, canActivate: [authGuard] },
-  { path: 'historial', component: HistoryComponent, canActivate: [authGuard] },
-  { path: 'solicitar-permiso', component: RequestLeave, canActivate: [authGuard] },
-  { path: 'directorio', component: EmployeeList, canActivate: [authGuard] },
-
+  // Redirecciones globales
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' },
 ];
