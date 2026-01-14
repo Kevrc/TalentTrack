@@ -1,0 +1,202 @@
+/* header.component.css */
+
+/* Contenedor principal de la barra */
+.topbar {
+  height: 70px; /* Un poco más alto para elegancia */
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  border-bottom: 1px solid #eef2f6;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02); /* Sombra muy sutil */
+}
+
+/* --- BARRA DE BÚSQUEDA --- */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #F4F7FE; /* Gris muy suave */
+  padding: 0.6rem 1rem;
+  border-radius: 30px; /* Bordes redondeados modernos */
+  width: 300px;
+  gap: 10px;
+  transition: all 0.2s;
+}
+
+.search-bar:focus-within {
+  background: #ffffff;
+  box-shadow: 0 0 0 2px #eef2f6; /* Efecto focus */
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 0.9rem;
+  color: #2b3674;
+  font-family: inherit;
+}
+
+.search-icon { 
+  color: #8F9BBA; 
+}
+
+/* --- DERECHA (ICONOS Y PERFIL) --- */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  color: #A3AED0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background-color: #f6f9fc;
+  color: #2b3674;
+}
+
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #FF0000;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+/* --- PERFIL DE USUARIO --- */
+.user-profile-container {
+  position: relative;
+  margin-left: 10px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 30px;
+  background-color: #fff;
+  transition: background 0.2s;
+  border: 1px solid transparent;
+}
+
+.user-profile:hover {
+  background-color: #F4F7FE;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #2b3674;
+}
+
+.chevron {
+  color: #A3AED0;
+  transition: transform 0.2s;
+}
+
+.chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* --- DROPDOWN (MENÚ FLOTANTE) --- */
+.dropdown-menu {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  width: 220px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: 10px;
+  z-index: 1000;
+  border: 1px solid #f0f0f0;
+}
+
+.dropdown-header {
+  padding: 10px 15px;
+  border-bottom: 1px solid #f4f7fe;
+  margin-bottom: 5px;
+}
+
+.small-text {
+  font-size: 0.95rem;
+  color: #A3AED0;
+  margin: 0;
+}
+
+.bold-text {
+  font-weight: 700;
+  color: #2b3674;
+  margin: 0;
+}
+
+.dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: #707EAE;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #F4F7FE;
+  color: #2b3674;
+}
+
+.dropdown-item.text-red {
+  color: #E03137;
+}
+.dropdown-item.text-red:hover {
+  background-color: #FFF5F5;
+}
+
+.separator {
+  height: 1px;
+  background-color: #f4f7fe;
+  margin: 8px 0;
+}
+
+/* OVERLAY PARA CERRAR */
+.overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background: transparent;
+}

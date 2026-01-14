@@ -1,0 +1,40 @@
+<header class="topbar">
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar..." />
+    </div>
+
+    <div class="actions">
+        <div class="user-profile-container">
+
+            <div class="user-profile" (click)="toggleDropdown()">
+                <img [src]="userPhoto" alt="User" class="avatar">
+                <svg class="chevron" [class.rotated]="isOpen" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+
+            <div class="dropdown-menu" *ngIf="isOpen">
+
+                <div class="dropdown-header">
+                    <p class="small-text">Bienvenido, {{ userName }}</p>
+                </div>
+
+                <ng-container *ngFor="let option of menuOptions">
+
+                    <button *ngIf="!option.type" class="dropdown-item" [class.text-red]="option.color === 'red'"
+                        (click)="option.action?.()">
+                        <i [class]="'icon-' + option.icon"></i>
+                        <span>{{ option.label }}</span>
+                    </button>
+
+                    <div *ngIf="option.type === 'separator'" class="separator"></div>
+
+                </ng-container>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<div class="overlay-backdrop" *ngIf="isOpen" (click)="isOpen = false"></div>
