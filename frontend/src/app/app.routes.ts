@@ -9,17 +9,14 @@ import { EmployeeList } from './features/employees/employee-list/employee-list';
 import { EditEmployee } from './features/employees/edit-employee/edit-employee';
 import { EmployeeProfile } from './features/employees/employee-profile/employee-profile';
 import { RequestLeave } from './features/leaves/request-leave/request-leave';
+import { MyRequestsComponent } from './features/leaves/my-requests/my-requests';
 import { HistoryComponent } from './features/attendance/history/history';
 import { CreateEmployee } from './features/employees/create-employee/create-employee';
 import { AdminLayout } from './shared/layouts/admin-layout/admin-layout';
 import { inject } from '@angular/core';
 import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
 import { SUPER_ADMIN_ROUTES } from './features/super-admin/super-admin.routes';
-=======
-import { CalendarComponent } from './features/calendar/calendar';
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
 
 // Guard simple para proteger rutas
 const authGuard = () => {
@@ -29,7 +26,6 @@ const authGuard = () => {
 };
 
 // Guard para completar perfil si es primer login
-// Solo aplica para usuarios RRHH - SuperAdmin no necesita completar perfil
 const completarPerfilGuard = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
@@ -57,7 +53,6 @@ export const routes: Routes = [
   { path: 'completar-perfil', component: CompleteProfileComponent, canActivate: [authGuard] },
 
   // --- 0. GRUPO SUPER ADMIN ---
-  // Rutas exclusivas para el SuperAdmin
   {
     path: 'super-admin',
     canActivate: [authGuard, completarPerfilGuard],
@@ -65,27 +60,24 @@ export const routes: Routes = [
   },
 
   // --- 1. GRUPO ADMIN (RRHH) ---
-  // Todas estas rutas empezarán con /admin/...
   {
     path: 'admin',
     component: AdminLayout,
     canActivate: [authGuard, completarPerfilGuard],
     children: [
-      { path: 'dashboard', component: AdminDashboard }, // /admin/dashboard
-      { path: 'nuevo-empleado', component: CreateEmployee }, // /admin/nuevo-empleado
+      { path: 'dashboard', component: AdminDashboard },
+      { path: 'nuevo-empleado', component: CreateEmployee },
       { path: 'editar-empleado/:id', component: EditEmployee },
       { path: 'perfil-empleado/:id', component: EmployeeProfile },
       { path: 'directorio', component: EmployeeList },
       { path: 'asistencia', component: HistoryComponent },
+      { path: 'solicitudes', component: MyRequestsComponent },
       { path: 'documentos', component: RequestLeave },
-      // Redirección por defecto dentro de admin
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'calendario', component: CalendarComponent },
     ],
   },
 
   // --- 2. GRUPO MANAGER ---
-  // Rutas que empiezan con /manager/...
   {
     path: 'manager',
     component: AdminLayout,
@@ -93,18 +85,13 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: ManagerDashboard },
       { path: 'equipo', component: EmployeeList },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-<<<<<<< HEAD
+      { path: 'solicitudes', component: MyRequestsComponent },
       { path: 'perfil', component: EmployeeProfile },
-=======
-      { path: 'perfil', component: EmployeeProfile }, // Perfil propio
-      { path: 'calendario', component: CalendarComponent },
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 
   // --- 3. GRUPO EMPLEADO ---
-  // Rutas que empiezan con /portal/...
   {
     path: 'portal',
     component: AdminLayout,
@@ -113,16 +100,10 @@ export const routes: Routes = [
       { path: 'home', component: EmployeeDashboard },
       { path: 'marcar', component: MarkAttendanceComponent },
       { path: 'historial', component: HistoryComponent },
-      { path: 'solicitar-permiso', component: RequestLeave },
-<<<<<<< HEAD
+      { path: 'vacaciones', component: RequestLeave },
+      { path: 'solicitudes', component: MyRequestsComponent },
       { path: 'perfil', component: EmployeeProfile },
-=======
-      { path: 'calendario', component: CalendarComponent },
-
-      { path: 'perfil', component: EmployeeProfile }, // Perfil propio
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-
     ],
   },
 
