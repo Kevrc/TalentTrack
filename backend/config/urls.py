@@ -35,6 +35,7 @@ urlpatterns = [
     path('api/employees/', include('employees.urls')),
     path('api/core/', include('core.urls')),
     path('api/performance/', include('performance.urls')),
+    path('api/tasks/', include('tasks.urls')),
       # Swagger UI
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 

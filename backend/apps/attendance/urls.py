@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import MarcarAsistenciaView, HistorialAsistenciaView, AsistenciaEquipoView
+from .views import MarcarAsistenciaView, HistorialAsistenciaView, AsistenciaEquipoView,EventoAsistenciaSerializer
 
 urlpatterns = [
     path('marcar/', MarcarAsistenciaView.as_view(), name='marcar-asistencia'),

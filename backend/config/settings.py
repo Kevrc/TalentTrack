@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'leaves',
     'drf_yasg',
     'performance',
+    'tasks',
 
 ]
 
