@@ -24,11 +24,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'drf_yasg',
-<<<<<<< HEAD
-=======
-    'performance',
-    'tasks',
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
 
     # Apps del proyecto (EXPLÍCITO)
     'apps.users.apps.UsersConfig',
@@ -38,6 +33,7 @@ INSTALLED_APPS = [
     'apps.leaves.apps.LeavesConfig',
     'apps.performance.apps.PerformanceConfig',
     'apps.plans.apps.PlansConfig',
+    'apps.tasks.apps.TasksConfig',
 ]
 
 

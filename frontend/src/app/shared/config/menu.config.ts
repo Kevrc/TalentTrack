@@ -1,5 +1,4 @@
 export const MENU_ROLES: any = {
-<<<<<<< HEAD
   // 1. SUPERADMIN - Administrador de plataforma (gestiona todas las empresas)
   SUPERADMIN: [
     { label: 'Dashboard', link: '/super-admin/dashboard', icon: 'dashboard' },
@@ -9,9 +8,6 @@ export const MENU_ROLES: any = {
   ],
 
   // 2. RRHH - Administrador de RRHH (gestiona su empresa)
-=======
-  // 1. ADMIN / RRHH (Ve todo)
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
   RRHH: [
     { label: 'Dashboard', link: '/admin/dashboard', icon: 'dashboard' },
     { label: 'Directorio', link: '/admin/directorio', icon: 'users' },

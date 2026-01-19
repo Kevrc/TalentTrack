@@ -15,11 +15,8 @@ import { AdminLayout } from './shared/layouts/admin-layout/admin-layout';
 import { inject } from '@angular/core';
 import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
 import { SUPER_ADMIN_ROUTES } from './features/super-admin/super-admin.routes';
-=======
 import { CalendarComponent } from './features/calendar/calendar';
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
 
 // Guard simple para proteger rutas
 const authGuard = () => {
@@ -78,9 +75,9 @@ export const routes: Routes = [
       { path: 'directorio', component: EmployeeList },
       { path: 'asistencia', component: HistoryComponent },
       { path: 'documentos', component: RequestLeave },
+      { path: 'calendario', component: CalendarComponent },
       // Redirección por defecto dentro de admin
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'calendario', component: CalendarComponent },
     ],
   },
 
@@ -93,13 +90,9 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: ManagerDashboard },
       { path: 'equipo', component: EmployeeList },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-<<<<<<< HEAD
       { path: 'perfil', component: EmployeeProfile },
-=======
-      { path: 'perfil', component: EmployeeProfile }, // Perfil propio
       { path: 'calendario', component: CalendarComponent },
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 
@@ -114,13 +107,8 @@ export const routes: Routes = [
       { path: 'marcar', component: MarkAttendanceComponent },
       { path: 'historial', component: HistoryComponent },
       { path: 'solicitar-permiso', component: RequestLeave },
-<<<<<<< HEAD
       { path: 'perfil', component: EmployeeProfile },
-=======
       { path: 'calendario', component: CalendarComponent },
-
-      { path: 'perfil', component: EmployeeProfile }, // Perfil propio
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
     ],

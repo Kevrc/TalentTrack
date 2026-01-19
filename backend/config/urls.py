@@ -29,7 +29,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     # Tus apps
-<<<<<<< HEAD
     path('api/users/', include('apps.users.urls')),
     path('api/attendance/', include('apps.attendance.urls')), 
     path('api/leaves/', include('apps.leaves.urls')),
@@ -37,16 +36,9 @@ urlpatterns = [
     path('api/core/', include('apps.core.urls')),
     path('api/performance/', include('apps.performance.urls')),
     path('api/plans/', include('apps.plans.urls')),
-=======
-    path('api/users/', include('users.urls')),
-    path('api/attendance/', include('attendance.urls')), 
-    path('api/leaves/', include('leaves.urls')),
-    path('api/employees/', include('employees.urls')),
-    path('api/core/', include('core.urls')),
-    path('api/performance/', include('performance.urls')),
-    path('api/tasks/', include('tasks.urls')),
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
-      # Swagger UI
+    path('api/tasks/', include('apps.tasks.urls')),
+    
+    # Swagger UI
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
     # Redoc UI

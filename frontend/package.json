@@ -28,16 +28,15 @@
     "@angular/forms": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
-<<<<<<< HEAD
+    "@fullcalendar/angular": "^6.1.20",
+    "@fullcalendar/core": "^6.1.20",
+    "@fullcalendar/daygrid": "^6.1.20",
+    "@fullcalendar/interaction": "^6.1.20",
+    "@fullcalendar/timegrid": "^6.1.20",
     "chart.js": "^4.4.4",
     "echarts": "^6.0.0",
     "ng2-charts": "^4.1.1",
     "ngx-echarts": "^17.2.0",
-=======
-    "@fullcalendar/angular": "^6.1.20",
-    "@fullcalendar/daygrid": "^6.1.20",
-    "@fullcalendar/interaction": "^6.1.20",
->>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
