@@ -50,7 +50,7 @@ export class CreateEmployee implements OnInit {
       unidad: this.form.unidad || null,
       manager: this.form.manager || null,
     };
-    this.employeeService.crearEmpleado(this.form).subscribe({
+    this.employeeService.crearEmpleado(payload).subscribe({
       next: () => {
         alert('Empleado creado exitosamente');
         this.router.navigate(['/admin']);

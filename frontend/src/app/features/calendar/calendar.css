@@ -1,0 +1,284 @@
+/* Paleta de colores TalentTrack */
+:root {
+  --tt-red: #ff0015; /* El rojo de tu sidebar */
+  --tt-bg: #f8fafc;
+  --tt-text-main: #1f2937;
+  --tt-text-muted: #64748b;
+  --tt-border: #e2e8f0;
+}
+
+.tt-container {
+  padding: 24px;
+  background-color: var(--tt-bg);
+  min-height: 100vh;
+}
+
+.tt-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--tt-border);
+}
+
+/* MODAL OVERLAY */
+.tt-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.4); /* Oscurece el fondo */
+  backdrop-filter: blur(4px); /* Efecto borroso profesional */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* RECUADRO BLANCO CENTRAL */
+.tt-modal-content {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: modalEnter 0.25s ease-out;
+}
+
+@keyframes modalEnter {
+  from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.tt-modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--tt-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tt-modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tt-text-main);
+}
+
+.tt-btn-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--tt-text-muted);
+  cursor: pointer;
+}
+
+.tt-modal-body {
+  padding: 24px;
+}
+
+.tt-form-group {
+  margin-bottom: 20px;
+}
+
+.tt-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--tt-text-main);
+  margin-bottom: 6px;
+}
+
+.tt-input-title {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--tt-border);
+  padding: 8px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tt-text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.tt-input-title:focus {
+  border-bottom-color: var(--tt-red);
+}
+
+.tt-input, .tt-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--tt-border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition: all 0.2s;
+}
+
+.tt-input:focus, .tt-textarea:focus {
+  border-color: var(--tt-red);
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.1);
+  outline: none;
+}
+
+.tt-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.tt-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.tt-btn-submit {
+  background-color: var(--tt-red);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.tt-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tt-btn-cancel {
+  background-color: transparent;
+  color: var(--tt-text-muted);
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--tt-border);
+  cursor: pointer;
+}
+
+.tt-btn-cancel:hover {
+  background-color: var(--tt-bg);
+}
+/* Botón Principal (Rojo TalentTrack) */
+.tt-btn-submit {
+  background-color: #ff0015; /* El mismo rojo de tu aplicación */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 4px 6px rgba(255, 0, 21, 0.2);
+}
+
+.tt-btn-submit:hover {
+  background-color: #d90012;
+}
+
+.tt-btn-submit:active {
+  transform: scale(0.98);
+}
+
+.tt-btn-submit:disabled {
+  background-color: #fda4af; /* Rojo claro si está desactivado */
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Botón Cancelar */
+.tt-btn-cancel {
+  background-color: white;
+  color: #64748b;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.tt-btn-cancel:hover {
+  background-color: #f8fafc;
+}
+
+/* Alineación del Footer */
+.tt-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
+}
+
+
+/* --- ESTILO DE LAS TAREAS (EVENTOS) --- */
+:host ::v-deep .fc-event {
+  border: none !important;
+  border-radius: 6px !important; /* Bordes redondeados modernos */
+  padding: 4px 10px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 3px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+:host ::v-deep .fc-event:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Indicador de hora dentro del evento */
+:host ::v-deep .fc-event-time {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-right: 6px;
+  font-size: 0.75rem;
+}
+
+/* --- ESTILO DEL CALENDARIO --- */
+:host ::v-deep .fc-theme-standard td, 
+:host ::v-deep .fc-theme-standard th {
+  border: 1px solid #f1f5f9 !important; /* Bordes muy suaves */
+}
+
+:host ::v-deep .fc-daygrid-day-number {
+  color: #64748b;
+  font-weight: 500;
+  padding: 10px !important;
+  text-decoration: none !important;
+}
+
+/* Día seleccionado o actual */
+:host ::v-deep .fc-day-today {
+  background-color: rgba(225, 29, 72, 0.02) !important; /* Rojo TalentTrack muy sutil */
+}
+
+/* Botones Superiores */
+:host ::v-deep .fc-button-primary {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+  text-transform: capitalize !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+:host ::v-deep .fc-button-primary:hover {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+:host ::v-deep .fc-button-active {
+  background-color: #1f2937 !important; /* Gris oscuro para el estado activo */
+  color: white !important;
+}
