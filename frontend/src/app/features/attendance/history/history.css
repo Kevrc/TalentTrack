@@ -1,0 +1,36 @@
+.tt-container { padding: 2rem; background: #f8fafc; min-height: 100vh; }
+.tt-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
+.tt-h1 { font-size: 1.8rem; color: #1e293b; font-weight: 700; margin: 0; }
+.tt-p { color: #64748b; margin-top: 0.5rem; }
+.tt-search { padding: 0.8rem 1.2rem; border: 1px solid #e2e8f0; border-radius: 12px; width: 320px; outline: none; }
+.tt-search:focus { border-color: #e11d48; box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.1); }
+
+.tt-card { background: white; border-radius: 16px; border: 1px solid #f1f5f9; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; }
+.tt-table { width: 100%; border-collapse: collapse; }
+.tt-table th { background: #f8fafc; padding: 1rem; text-align: left; font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; }
+.tt-table td { padding: 1.25rem 1rem; border-bottom: 1px solid #f8fafc; }
+
+.tt-user { display: flex; align-items: center; gap: 1rem; }
+.tt-avatar { width: 40px; height: 40px; background: #e11d48; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; }
+.tt-name { font-weight: 600; color: #1e293b; margin: 0; }
+.tt-sub { color: #94a3b8; font-size: 0.8rem; margin: 0; }
+.tt-bold { font-weight: 700; color: #1e293b; }
+.tt-ip { font-size: 0.7rem; color: #cbd5e1; }
+
+.badge-entrada { background: #dcfce7; color: #15803d; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
+.badge-salida { background: #fee2e2; color: #b91c1c; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
+.badge-pausa { background: #fef9c3; color: #854d0e; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
+.tt-empty { padding: 4rem; text-align: center; color: #94a3b8; }
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #e2e8f0;
+  color: #64748b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}

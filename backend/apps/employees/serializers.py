@@ -53,24 +53,26 @@ class NuevoEmpleadoSerializer(serializers.ModelSerializer):
         
 
 class ListEmpleadoSerializer(serializers.ModelSerializer):
-    # Al declarar estos campos con sus serializadores, Django anida el objeto completo
     puesto = PuestoSerializer(read_only=True)
     unidad = UnidadSerializer(read_only=True)
+    # 1. Agregamos el campo rol que viene del modelo User relacionado
+    rol = serializers.SerializerMethodField()
 
     class Meta:
         model = Empleado
         fields = [
-            'id', 
-            'nombres', 
-            'apellidos', 
-            'email', 
-            'documento', 
-            'fecha_ingreso', 
-            'puesto',  # Ahora devolverá {id: 1, nombre: "Dev"}
-            'unidad',  # Ahora devolverá {id: 1, nombre: "IT"}
-            'foto_url' # Si tienes este campo
+            'id', 'nombres', 'apellidos', 'email', 'documento', 
+            'fecha_ingreso', 'puesto', 'unidad', 'foto_url',
+            'rol' # <--- Agregamos el rol aquí
         ]
 
+    def get_rol(self, obj):
+        # 2. Buscamos el usuario que tenga el mismo email que el empleado
+        try:
+            user = User.objects.get(email=obj.email)
+            return user.rol # O el nombre del campo rol en tu modelo User
+        except User.DoesNotExist:
+            return None
         
 # Serializer para ACTUALIZAR datos (sin tocar usuario/password)
 class UpdateEmpleadoSerializer(serializers.ModelSerializer):

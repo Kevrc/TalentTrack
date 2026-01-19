@@ -71,23 +71,30 @@ class AsistenciaEquipoView(generics.ListAPIView):
         except Empleado.DoesNotExist:
             return EventoAsistencia.objects.none()
         
+
 class HistorialAsistenciaView(generics.ListAPIView):
-    """
-    Devuelve el historial de asistencia del empleado logueado.
-    """
     serializer_class = EventoAsistenciaSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
-        try:
-            # 1. Identificar el empleado logueado
-            empleado = Empleado.objects.get(email=user.email)
-            
-            # 2. Filtrar asistencias de este empleado, ordenadas por fecha descendente
-            return EventoAsistencia.objects.filter(
-                empleado=empleado
-            ).order_by('-registrado_el')
-            
-        except Empleado.DoesNotExist:
+        # Buscamos al empleado por el email del usuario logueado
+        empleado_qs = Empleado.objects.filter(email=user.email)
+        
+        if not empleado_qs.exists():
             return EventoAsistencia.objects.none()
+        
+        perfil = empleado_qs.first()
+
+        # RRHH ve todo de su empresa
+        if getattr(user, 'rol', None) == 'RRHH':
+            return EventoAsistencia.objects.filter(empresa=perfil.empresa)
+        
+        # MANAGER ve a sus subordinados
+        elif getattr(user, 'rol', None) == 'MANAGER':
+            return EventoAsistencia.objects.filter(empleado__manager=perfil)
+        
+        # Por defecto, solo lo propio
+        return EventoAsistencia.objects.filter(empleado=perfil)
+        
+

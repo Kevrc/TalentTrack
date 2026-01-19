@@ -1,1 +1,54 @@
-<p>history works!</p>
+<div class="tt-container">
+  <div class="tt-header">
+    <div class="tt-title-section">
+      <h1 class="tt-h1">Historial de Asistencia</h1>
+      <p class="tt-p">Registros ordenados por fecha y hora de dispositivo</p>
+    </div>
+    <input type="text" [(ngModel)]="filtroNombre" (input)="filtrar()" 
+           placeholder="Buscar colaborador..." class="tt-search">
+  </div>
+
+  <div class="tt-card">
+    <table class="tt-table">
+      <thead>
+        <tr>
+          <th>Colaborador</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Evento</th>
+          <th>Fuente / IP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reg of asistenciasFiltradas">
+          <td>
+            <div class="tt-user">
+              <div class="avatar-circle">
+                                {{ reg.empleado_nombre.charAt(0) }}{{ reg.empleado_apellido.charAt(0) }}
+                            </div>
+              <div>
+                <p class="tt-name">{{ reg.empleado_nombre }} {{ reg.empleado_apellido }}</p>
+                <p class="tt-sub">{{ reg.puesto || 'Colaborador' }}</p>
+              </div>
+            </div>
+          </td>
+          <td>{{ reg.fecha_hora_dispositivo | date:'yyyy-MM-dd' }}</td>
+          <td class="tt-bold">{{ reg.fecha_hora_dispositivo | date:'HH:mm:ss' }}</td>
+          <td>
+            <span [ngClass]="getBadgeClass(reg.tipo)">
+              {{ getLabelTipo(reg.tipo) }}
+            </span>
+          </td>
+          <td>
+            <div class="tt-sub">{{ reg.fuente }}</div>
+            <div class="tt-ip">{{ reg.ip || '---' }}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="asistenciasFiltradas.length === 0 && !loading" class="tt-empty">
+      No se encontraron registros de marcación.
+    </div>
+  </div>
+</div>

@@ -70,93 +70,67 @@
                 <button [class.active]="activeTab === 'config'" (click)="cambiarTab('config')">Configuración</button>
             </nav>
 
-            <div class="tab-content" *ngIf="activeTab === 'general'">
+           <div class="tab-content" *ngIf="activeTab === 'general'">
 
-                <section class="info-section">
-                    <div class="section-header">
-                        <h3>Información personal</h3>
-                        <button class="btn-icon">✏️</button>
-                    </div>
+    <section class="info-section">
+        <div class="section-header">
+            <h3>Información personal</h3>
+            <button class="btn-icon" *ngIf="puedeEditar" (click)="abrirEdicion('personal')">✏️</button>
+        </div>
 
-                    <div class="info-grid">
-                        <div class="info-group">
-                            <label>Nombre completo</label>
-                            <p>{{ empleado.nombres }} {{ empleado.apellidos }}</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Género</label>
-                            <p>Femenino</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Fecha de nacimiento</label>
-                            <p>23 May 1997</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Estado civil</label>
-                            <p>Soltera</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Nacionalidad</label>
-                            <p>Ecuatoriana</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Correo electrónico</label>
-                            <p>{{ empleado.email }}</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Número de celular</label>
-                            <p>0984123102</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="info-section">
-                    <div class="section-header">
-                        <h3>Dirección</h3>
-                        <button class="btn-icon">✏️</button>
-                    </div>
-                    <div class="info-grid">
-                        <div class="info-group">
-                            <label>Dirección principal</label>
-                            <p>Av. Eugenio Espejo</p>
-                        </div>
-                        <div class="info-group">
-                            <label>País</label>
-                            <p>Ecuador</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Ciudad</label>
-                            <p>Loja</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Código Postal</label>
-                            <p>110101</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="info-section">
-                    <div class="section-header">
-                        <h3>Contacto de emergencia</h3>
-                        <button class="btn-icon">✏️</button>
-                    </div>
-                    <div class="info-grid">
-                        <div class="info-group">
-                            <label>Nombre completo</label>
-                            <p>Mario Macas</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Relación</label>
-                            <p>Padre</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Número de celular</label>
-                            <p>0987654321</p>
-                        </div>
-                    </div>
-                </section>
-
+        <div class="info-grid">
+            <div class="info-group">
+                <label>Nombre completo</label>
+                <p>{{ empleado.nombres }} {{ empleado.apellidos }}</p>
             </div>
+            <div class="info-group">
+                <label>Género</label>
+                <p>{{ empleado.genero || 'No definido' }}</p>
+            </div>
+            <div class="info-group">
+                <label>Fecha de nacimiento</label>
+                <p>{{ empleado.fecha_nacimiento | date:'dd MMM yyyy' }}</p>
+            </div>
+            <div class="info-group">
+                <label>Estado civil</label>
+                <p>{{ empleado.estado_civil || 'No definido' }}</p>
+            </div>
+            <div class="info-group">
+                <label>Nacionalidad</label>
+                <p>{{ empleado.nacionalidad || 'Ecuatoriana' }}</p>
+            </div>
+            <div class="info-group">
+                <label>Correo electrónico</label>
+                <p>{{ empleado.email }}</p>
+            </div>
+            <div class="info-group">
+                <label>Número de celular</label>
+                <p>{{ empleado.telefono || 'Sin registrar' }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="section-header">
+            <h3>Dirección</h3>
+            <button class="btn-icon" *ngIf="puedeEditar" (click)="abrirEdicion('direccion')">✏️</button>
+        </div>
+        <div class="info-grid">
+            <div class="info-group">
+                <label>Dirección principal</label>
+                <p>{{ empleado.direccion || 'Sin dirección' }}</p>
+            </div>
+            <div class="info-group">
+                <label>País</label>
+                <p>{{ empleado.pais || 'Ecuador' }}</p>
+            </div>
+            <div class="info-group">
+                <label>Ciudad</label>
+                <p>{{ empleado.ciudad || 'No definida' }}</p>
+            </div>
+        </div>
+    </section>
+</div>
 
             <div class="tab-content" *ngIf="activeTab !== 'general'">
                 <p class="empty-msg">Contenido de {{ activeTab }} próximamente...</p>
@@ -164,4 +138,64 @@
 
         </main>
     </div>
+
+    <div class="modal-overlay" *ngIf="showModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Editar {{ seccionEditando | titlecase }}</h3>
+            <button class="btn-close" (click)="cerrarModal()">×</button>
+        </div>
+
+        <form [formGroup]="editForm" (ngSubmit)="guardarCambios()">
+            <div class="modal-body">
+                <ng-container *ngIf="seccionEditando === 'personal'">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombres</label>
+                            <input formControlName="nombres">
+                        </div>
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <input formControlName="apellidos">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Género</label>
+                            <select formControlName="genero">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Estado Civil</label>
+                            <select formControlName="estado_civil">
+                                <option value="Soltero/a">Soltero/a</option>
+                                <option value="Casado/a">Casado/a</option>
+                                <option value="Divorciado/a">Divorciado/a</option>
+                            </select>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="seccionEditando === 'direccion'">
+                    <div class="form-group">
+                        <label>Dirección Principal</label>
+                        <input formControlName="direccion">
+                    </div>
+                    <div class="form-group">
+                        <label>Ciudad</label>
+                        <input formControlName="ciudad">
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button type="submit" class="btn-primary" [disabled]="editForm.invalid">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
 </div>

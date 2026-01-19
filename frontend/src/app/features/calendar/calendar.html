@@ -1,0 +1,55 @@
+<div class="tt-container">
+  <div class="tt-card">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+
+  <div class="tt-modal-overlay" *ngIf="showModal">
+    <div class="tt-modal-content">
+      
+      <div class="tt-modal-header">
+        <h3 class="tt-modal-title">Asignar Nueva Tarea</h3>
+        <button type="button" class="tt-btn-close" (click)="showModal = false">&times;</button>
+      </div>
+
+      <form [formGroup]="taskForm" (ngSubmit)="submitTask()" class="tt-modal-body">
+        
+        <div class="tt-form-group">
+          <input formControlName="titulo" type="text" placeholder="Título de la tarea..." class="tt-input-title">
+        </div>
+
+        <div class="tt-form-row">
+          <div class="tt-form-group">
+            <label class="tt-label">Inicio</label>
+            <input formControlName="fecha_inicio" type="datetime-local" class="tt-input">
+          </div>
+          <div class="tt-form-group">
+            <label class="tt-label">Fin</label>
+            <input formControlName="fecha_fin" type="datetime-local" class="tt-input">
+          </div>
+        </div>
+
+        <div class="tt-form-group">
+          <label class="tt-label">Colaborador</label>
+          <select formControlName="asignado_a" class="tt-input">
+            <option value="">Seleccionar responsable...</option>
+            <option *ngFor="let sub of subordinates" [value]="sub.id">
+              {{ sub.nombres }} {{ sub.apellidos }}
+            </option>
+          </select>
+        </div>
+
+        <div class="tt-form-group">
+          <label class="tt-label">Descripción</label>
+          <textarea formControlName="descripcion" placeholder="¿Qué debe hacer el colaborador?" class="tt-textarea"></textarea>
+        </div>
+
+        <div class="tt-modal-footer">
+          <button type="button" class="tt-btn-cancel" (click)="showModal = false">Cancelar</button>
+          <button type="submit" class="tt-btn-submit" [disabled]="taskForm.invalid">
+            Asignar Tarea
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

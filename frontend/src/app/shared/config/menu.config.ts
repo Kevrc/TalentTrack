@@ -1,4 +1,5 @@
 export const MENU_ROLES: any = {
+<<<<<<< HEAD
   // 1. SUPERADMIN - Administrador de plataforma (gestiona todas las empresas)
   SUPERADMIN: [
     { label: 'Dashboard', link: '/super-admin/dashboard', icon: 'dashboard' },
@@ -8,10 +9,14 @@ export const MENU_ROLES: any = {
   ],
 
   // 2. RRHH - Administrador de RRHH (gestiona su empresa)
+=======
+  // 1. ADMIN / RRHH (Ve todo)
+>>>>>>> 5087130a3f31df1e6728a00a638a282323899c3e
   RRHH: [
     { label: 'Dashboard', link: '/admin/dashboard', icon: 'dashboard' },
     { label: 'Directorio', link: '/admin/directorio', icon: 'users' },
     { label: 'Asistencia', link: '/admin/asistencia', icon: 'clock' },
+    { label: 'Calendario', link: '/admin/calendario', icon: 'calendar' },
     { label: 'Vacaciones', link: '/admin/vacaciones', icon: 'calendar' },
     { label: 'Evaluaciones', link: '/admin/evaluaciones', icon: 'chart' },
     { label: 'Documentos', link: '/admin/documentos', icon: 'file' },
@@ -21,6 +26,7 @@ export const MENU_ROLES: any = {
   MANAGER: [
     { label: 'Dashboard', link: '/manager/dashboard', icon: 'dashboard' },
     { label: 'Mi Equipo', link: '/manager/equipo', icon: 'users' },
+    { label: 'Calendario', link: '/manager/calendario', icon: 'calendar' },
     { label: 'Aprobaciones', link: '/manager/aprobaciones', icon: 'check' },
     { label: 'Evaluaciones', link: '/manager/evaluaciones', icon: 'chart' },
     { label: 'Mi Perfil', link: '/manager/perfil', icon: 'user' },
@@ -30,6 +36,7 @@ export const MENU_ROLES: any = {
   EMPLEADO: [
     { label: 'Mi Perfil', link: '/portal/perfil', icon: 'user' },
     { label: 'Marcar Asistencia', link: '/portal/marcar', icon: 'clock' },
+    { label: 'Calendario', link: '/portal/calendario', icon: 'calendar' },
     { label: 'Mis Vacaciones', link: '/portal/vacaciones', icon: 'calendar' },
     { label: 'Mis Evaluaciones', link: '/portal/evaluaciones', icon: 'chart' },
   ],
