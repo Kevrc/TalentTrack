@@ -49,7 +49,7 @@ export class RequestLeave implements OnInit {
       next: (data) => (this.tipos = data),
       error: (err) => console.error('Error cargando tipos:', err),
     });
-  }  }
+  }
 
   onFileSelected(event: any) {
     this.archivoSeleccionado = event.target.files[0];

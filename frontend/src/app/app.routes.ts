@@ -29,22 +29,22 @@ const authGuard = () => {
 const completarPerfilGuard = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
-  
+
   if (!auth.isLoggedIn()) {
     return router.createUrlTree(['/login']);
   }
-  
+
   // SuperAdmin nunca necesita completar perfil
   const userRole = auth.getUserRole();
   if (userRole === 'SUPERADMIN') {
     return true;
   }
-  
+
   // Para RRHH y otros roles, verificar si necesitan completar perfil
   if (auth.isPrimerLogin()) {
     return router.createUrlTree(['/completar-perfil']);
   }
-  
+
   return true;
 };
 
