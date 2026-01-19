@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, permissions
 from .serializers import NuevoEmpleadoSerializer, ListEmpleadoSerializer, UpdateEmpleadoSerializer
 from .models import Empleado
-from leaves.serializers import EmpleadoNameSerializer
+from apps.leaves.serializers import EmpleadoNameSerializer
 from django.db.models import Q
 class CrearEmpleadoView(generics.CreateAPIView):
     serializer_class = NuevoEmpleadoSerializer

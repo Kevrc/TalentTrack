@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Empleado
 from django.db import transaction
-from core.serializers import PuestoSerializer, UnidadSerializer
+from apps.core.serializers import PuestoSerializer, UnidadSerializer
 User = get_user_model()
 
 class NuevoEmpleadoSerializer(serializers.ModelSerializer):

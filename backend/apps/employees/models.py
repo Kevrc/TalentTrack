@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from core.models import Empresa, UnidadOrganizacional, Puesto
+from apps.core.models import Empresa, UnidadOrganizacional, Puesto
 
 # --- ENUMERADOS ---
 # Según catálogo sugerido en el PDF (Sección 9) [cite: 378, 379]

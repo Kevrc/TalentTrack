@@ -6,7 +6,7 @@ from django.utils import timezone
 from datetime import date
 from .models import EventoAsistencia
 from .serializers import EventoAsistenciaSerializer
-from employees.models import Empleado
+from apps.employees.models import Empleado
 
 class MarcarAsistenciaView(generics.CreateAPIView):
     queryset = EventoAsistencia.objects.all()

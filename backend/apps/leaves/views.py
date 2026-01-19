@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import generics, permissions
 from .models import TipoAusencia, SolicitudAusencia
 from .serializers import TipoAusenciaSerializer, SolicitudAusenciaSerializer, ResolverSolicitudSerializer
-from employees.models import Empleado
+from apps.employees.models import Empleado
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 class TipoAusenciaListView(generics.ListAPIView):

@@ -1,6 +1,6 @@
 from django.db import models
-from core.models import Empresa
-from employees.models import Empleado
+from apps.core.models import Empresa
+from apps.employees.models import Empleado
 
 # 1. KPI (Catálogo) [cite: 296]
 class Kpi(models.Model):

@@ -1,0 +1,70 @@
+<div class="audit-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1>Registro de Auditoría</h1>
+      <p class="subtitle">Historial de todas las acciones realizadas en la plataforma</p>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="cargando" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando registro de auditoría...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !cargando" class="error-message">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    {{ error }}
+  </div>
+
+  <!-- Table -->
+  <div *ngIf="!cargando && !error" class="table-container">
+    <!-- Empty State -->
+    <div *ngIf="registros.length === 0" class="empty-state">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <h3>No hay registros de auditoría</h3>
+      <p>Los eventos serán registrados aquí</p>
+    </div>
+
+    <!-- Table -->
+    <table *ngIf="registros.length > 0" class="table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th>Acción</th>
+          <th>Entidad</th>
+          <th>Detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of registros">
+          <td>{{ registro.fecha | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+          <td>{{ registro.usuario_email }}</td>
+          <td>
+            <span class="badge badge-primary">{{ registro.usuario_rol }}</span>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="getAccionBadgeClass(registro.accion)">
+              {{ getAccionLabel(registro.accion) }}
+            </span>
+          </td>
+          <td>{{ registro.entidad }}</td>
+          <td>
+            <small class="text-muted">{{ registro.entidad_id | slice: 0: 8 }}...</small>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

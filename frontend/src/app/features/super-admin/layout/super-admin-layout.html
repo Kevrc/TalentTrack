@@ -1,0 +1,79 @@
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <img src="assets/images/talenTrackLogo_SVG.svg" alt="TalentTrack" class="logo-img" />
+      </div>
+      <button class="collapse-btn" title="Colapsar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="11 17 6 12 11 7"></polyline>
+          <polyline points="18 17 13 12 18 7"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <a
+      class="sidebar-active"
+      [routerLink]="menuItems[0]?.path"
+      [class.active]="isActive(menuItems[0]?.path || '')"
+    >
+      <span class="sidebar-active-text">{{ menuItems[0]?.label }}</span>
+      <span class="sidebar-active-icon">
+        <i class="bi bi-grid-3x3-gap"></i>
+      </span>
+    </a>
+
+    <nav class="sidebar-nav">
+      <a
+        *ngFor="let item of menuItems.slice(1)"
+        [routerLink]="item.path"
+        [class.active]="isActive(item.path)"
+        class="nav-item"
+      >
+        <span class="nav-icon">
+          <ng-container [ngSwitch]="item.icon">
+            <i *ngSwitchCase="'home'" class="bi bi-grid-3x3-gap"></i>
+            <i *ngSwitchCase="'briefcase'" class="bi bi-building"></i>
+            <i *ngSwitchCase="'settings'" class="bi bi-gear"></i>
+            <i *ngSwitchCase="'report'" class="bi bi-file-text"></i>
+            <i *ngSwitchDefault class="bi bi-folder"></i>
+          </ng-container>
+        </span>
+        <span class="nav-text">{{ item.label }}</span>
+        <span class="nav-arrow">
+          <i class="bi bi-chevron-right"></i>
+        </span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a class="nav-item" [routerLink]="'/super-admin/ayuda'">
+        <span class="nav-icon">
+          <i class="bi bi-question-circle"></i>
+        </span>
+        <span class="nav-text">Centro de Ayuda</span>
+        <span class="nav-badge">8</span>
+      </a>
+
+      <div class="theme-switch" aria-label="Cambiar tema">
+        <button class="theme-btn" [class.active]="currentTheme === 'light'" title="Tema claro" (click)="setLight()">
+          <i class="bi bi-sun"></i>
+          <span>Claro</span>
+        </button>
+        <button class="theme-btn" [class.active]="currentTheme === 'dark'" title="Tema oscuro" (click)="setDark()">
+          <i class="bi bi-moon"></i>
+          <span>Oscuro</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <app-header></app-header>
+    <section class="main-body">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

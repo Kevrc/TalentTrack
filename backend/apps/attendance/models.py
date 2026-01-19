@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
-from core.models import Empresa
-from employees.models import Empleado  # Asegúrate de haber creado este archivo según el paso anterior
+from apps.core.models import Empresa
+from apps.employees.models import Empleado  # Asegúrate de haber creado este archivo según el paso anterior
 
 # --- ENUMERADOS (Catálogos útiles del PDF) ---
 class TipoEvento(models.TextChoices):

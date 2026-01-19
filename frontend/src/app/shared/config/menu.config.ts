@@ -1,6 +1,14 @@
 export const MENU_ROLES: any = {
-  // 1. ADMIN / RRHH (Ve todo)
+  // 1. SUPERADMIN - Administrador de plataforma (gestiona todas las empresas)
   SUPERADMIN: [
+    { label: 'Dashboard', link: '/super-admin/dashboard', icon: 'dashboard' },
+    { label: 'Empresas', link: '/super-admin/empresas', icon: 'briefcase' },
+    { label: 'Configuración', link: '/super-admin/configuracion', icon: 'settings' },
+    { label: 'Auditoría', link: '/super-admin/auditoria', icon: 'file-text' },
+  ],
+
+  // 2. RRHH - Administrador de RRHH (gestiona su empresa)
+  RRHH: [
     { label: 'Dashboard', link: '/admin/dashboard', icon: 'dashboard' },
     { label: 'Directorio', link: '/admin/directorio', icon: 'users' },
     { label: 'Asistencia', link: '/admin/asistencia', icon: 'clock' },
@@ -9,7 +17,7 @@ export const MENU_ROLES: any = {
     { label: 'Documentos', link: '/admin/documentos', icon: 'file' },
   ],
 
-  // 2. MANAGER (Ve a su equipo)
+  // 3. MANAGER - Jefe de equipo (gestiona su equipo)
   MANAGER: [
     { label: 'Dashboard', link: '/manager/dashboard', icon: 'dashboard' },
     { label: 'Mi Equipo', link: '/manager/equipo', icon: 'users' },
@@ -18,13 +26,11 @@ export const MENU_ROLES: any = {
     { label: 'Mi Perfil', link: '/manager/perfil', icon: 'user' },
   ],
 
-  // 3. EMPLEADO (Solo ve lo suyo)
+  // 4. EMPLEADO - Colaborador (solo ve sus datos)
   EMPLEADO: [
     { label: 'Mi Perfil', link: '/portal/perfil', icon: 'user' },
     { label: 'Marcar Asistencia', link: '/portal/marcar', icon: 'clock' },
     { label: 'Mis Vacaciones', link: '/portal/vacaciones', icon: 'calendar' },
     { label: 'Mis Evaluaciones', link: '/portal/evaluaciones', icon: 'chart' },
   ],
-
-  // PENDIENTE SI SE AUMENTA LOS ROLES
 };

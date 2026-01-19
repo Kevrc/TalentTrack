@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/login/login';
+import { CompleteProfileComponent } from './features/auth/complete-profile/complete-profile';
 import { ManagerDashboard } from './features/dashboard/manager-dashboard/manager-dashboard';
 import { AdminDashboard } from './features/dashboard/admin-dashboard/admin-dashboard';
 import { EmployeeDashboard } from './features/dashboard/employee-dashboard/employee-dashboard';
@@ -14,6 +15,7 @@ import { AdminLayout } from './shared/layouts/admin-layout/admin-layout';
 import { inject } from '@angular/core';
 import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
+import { SUPER_ADMIN_ROUTES } from './features/super-admin/super-admin.routes';
 
 // Guard simple para proteger rutas
 const authGuard = () => {
@@ -22,23 +24,56 @@ const authGuard = () => {
   return auth.isLoggedIn() ? true : router.createUrlTree(['/login']);
 };
 
+// Guard para completar perfil si es primer login
+// Solo aplica para usuarios RRHH - SuperAdmin no necesita completar perfil
+const completarPerfilGuard = () => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  
+  if (!auth.isLoggedIn()) {
+    return router.createUrlTree(['/login']);
+  }
+  
+  // SuperAdmin nunca necesita completar perfil
+  const userRole = auth.getUserRole();
+  if (userRole === 'SUPERADMIN') {
+    return true;
+  }
+  
+  // Para RRHH y otros roles, verificar si necesitan completar perfil
+  if (auth.isPrimerLogin()) {
+    return router.createUrlTree(['/completar-perfil']);
+  }
+  
+  return true;
+};
+
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'completar-perfil', component: CompleteProfileComponent, canActivate: [authGuard] },
 
-  // --- 1. GRUPO ADMIN (Aquí arreglamos el error) ---
+  // --- 0. GRUPO SUPER ADMIN ---
+  // Rutas exclusivas para el SuperAdmin
+  {
+    path: 'super-admin',
+    canActivate: [authGuard, completarPerfilGuard],
+    children: SUPER_ADMIN_ROUTES,
+  },
+
+  // --- 1. GRUPO ADMIN (RRHH) ---
   // Todas estas rutas empezarán con /admin/...
   {
     path: 'admin',
     component: AdminLayout,
-    canActivate: [authGuard],
+    canActivate: [authGuard, completarPerfilGuard],
     children: [
       { path: 'dashboard', component: AdminDashboard }, // /admin/dashboard
-      { path: 'nuevo-empleado', component: CreateEmployee }, // /admin/nuevo-empleado (¡Esto arregla tu error!)
+      { path: 'nuevo-empleado', component: CreateEmployee }, // /admin/nuevo-empleado
       { path: 'editar-empleado/:id', component: EditEmployee },
       { path: 'perfil-empleado/:id', component: EmployeeProfile },
       { path: 'directorio', component: EmployeeList },
-      { path: 'asistencia', component: HistoryComponent }, // Ejemplo: Historial global
-      { path: 'documentos', component: RequestLeave }, // Ejemplo temporal
+      { path: 'asistencia', component: HistoryComponent },
+      { path: 'documentos', component: RequestLeave },
       // Redirección por defecto dentro de admin
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
@@ -48,13 +83,13 @@ export const routes: Routes = [
   // Rutas que empiezan con /manager/...
   {
     path: 'manager',
-    component: AdminLayout, // Reutilizamos el mismo layout visual
-    canActivate: [authGuard],
+    component: AdminLayout,
+    canActivate: [authGuard, completarPerfilGuard],
     children: [
       { path: 'dashboard', component: ManagerDashboard },
-      { path: 'equipo', component: EmployeeList }, // Manager ve su equipo aquí
+      { path: 'equipo', component: EmployeeList },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'perfil', component: EmployeeProfile }, // Perfil propio
+      { path: 'perfil', component: EmployeeProfile },
     ],
   },
 
@@ -69,7 +104,7 @@ export const routes: Routes = [
       { path: 'marcar', component: MarkAttendanceComponent },
       { path: 'historial', component: HistoryComponent },
       { path: 'solicitar-permiso', component: RequestLeave },
-      { path: 'perfil', component: EmployeeProfile }, // Perfil propio
+      { path: 'perfil', component: EmployeeProfile },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

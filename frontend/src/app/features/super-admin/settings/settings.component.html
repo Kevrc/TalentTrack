@@ -1,0 +1,115 @@
+<div class="settings-container">
+  <div class="settings-header">
+    <div class="header-content">
+      <h1>Configuración</h1>
+      <p>Gestiona los catálogos globales y planes de suscripción</p>
+    </div>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="tabs-container">
+    <button 
+      class="tab-btn"
+      [class.active]="activeTab === 'catalogs'"
+      (click)="switchTab('catalogs')">
+      <i class="bi bi-gear-wide"></i>
+      <span>Catálogos Globales</span>
+    </button>
+    <button 
+      class="tab-btn"
+      [class.active]="activeTab === 'plans'"
+      (click)="switchTab('plans')">
+      <i class="bi bi-rocket-takeoff"></i>
+      <span>Planes y Suscripciones</span>
+    </button>
+  </div>
+
+  <!-- Catalogs Tab -->
+  <div class="tab-content" *ngIf="activeTab === 'catalogs'">
+    <div class="catalogs-grid">
+      <div class="catalog-card" *ngFor="let catalog of catalogs">
+        <div class="catalog-header">
+          <div class="catalog-icon">{{ catalog.icon }}</div>
+          <div class="catalog-info">
+            <h3>{{ catalog.title }}</h3>
+            <p class="catalog-description">{{ catalog.description }}</p>
+          </div>
+        </div>
+        <div class="catalog-footer">
+          <span class="count-badge">{{ catalog.count }} registros</span>
+          <button class="action-btn">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plans Tab -->
+  <div class="tab-content" *ngIf="activeTab === 'plans'">
+    <div class="plans-grid">
+      <div class="plan-card" *ngFor="let plan of plans">
+        <div class="plan-header">
+          <h3>{{ plan.name }}</h3>
+          <span class="status-badge" [class.active]="plan.status === 'active'">
+            {{ plan.status === 'active' ? 'Activo' : 'Inactivo' }}
+          </span>
+        </div>
+
+        <div class="plan-price">
+          <span class="price">{{ plan.price }}</span>
+          <span class="currency">{{ plan.currency }}/mes</span>
+        </div>
+
+        <div class="plan-users">
+          <i class="bi bi-people"></i>
+          <span>Hasta {{ plan.max_users }} usuarios</span>
+        </div>
+
+        <div class="plan-features">
+          <h4>Características:</h4>
+          <ul>
+            <li *ngFor="let feature of plan.features">
+              <i class="bi bi-check-circle-fill"></i>
+              {{ feature }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="plan-actions">
+          <button 
+            class="btn-edit"
+            (click)="editPlan(plan)"
+            [disabled]="loading">
+            Editar
+          </button>
+          <button 
+            class="btn-delete"
+            (click)="deletePlan(plan.id)"
+            [disabled]="loading">
+            Eliminar
+          </button>
+        </div>
+      </div>
+
+      <div class="plan-card add-plan">
+        <button 
+          class="add-btn"
+          (click)="openModal()"
+          [disabled]="loading">
+          <i class="bi bi-plus-circle"></i>
+          <span>Agregar nuevo plan</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Plan Modal -->
+<app-plan-modal 
+  [isOpen]="isModalOpen"
+  [plan]="selectedPlan"
+  (close)="closeModal()"
+  (save)="savePlan($event)">
+</app-plan-modal>
+

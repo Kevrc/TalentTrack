@@ -10,7 +10,12 @@ interface TokenResponse {
 export interface UserProfile {
   id: string;
   email: string;
+  primer_nombre?: string;
+  primer_apellido?: string;
+  segundo_apellido?: string;
+  telefono?: string;
   rol: 'SUPERADMIN' | 'RRHH' | 'MANAGER' | 'EMPLEADO';
+  primer_login_completado: boolean;
   empleado_datos?: {
     nombres: string;
     apellidos: string;
@@ -40,11 +45,38 @@ export class AuthService {
       switchMap(() => this.getProfile())
     );
   }
+
   getProfile(): Observable<UserProfile> {
     return this.http.get<UserProfile>(`${this.apiUrl}/users/profile/`).pipe(
       tap((user) => this.currentUser.set(user)) // Guardamos en el signal
     );
   }
+
+  completarPerfilInicial(datos: {
+    primer_nombre: string;
+    primer_apellido: string;
+    segundo_apellido?: string;
+    telefono?: string;
+  }): Observable<any> {
+    return this.http.post<{ detail: string; usuario: UserProfile }>(
+      `${this.apiUrl}/users/profile/completar_perfil_inicial/`,
+      datos
+    ).pipe(
+      tap((res) => {
+        // Actualizar el usuario actual con los nuevos datos
+        this.currentUser.set(res.usuario);
+      })
+    );
+  }
+
+  getUserRole(): string | null {
+    return this.currentUser()?.rol || null;
+  }
+
+  isPrimerLogin(): boolean {
+    return this.currentUser()?.primer_login_completado === false;
+  }
+
   private saveToken(token: string): void {
     localStorage.setItem('access_token', token);
   }
@@ -56,9 +88,11 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
+    this.currentUser.set(null);
   }
 
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
 }
+

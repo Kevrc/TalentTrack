@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a TalentTrack</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #4f46e5;
+            padding-bottom: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4f46e5;
+        }
+        .content {
+            margin: 30px 0;
+        }
+        .content h1 {
+            font-size: 24px;
+            color: #1a202c;
+            margin-top: 0;
+        }
+        .content p {
+            font-size: 16px;
+            margin: 15px 0;
+        }
+        .credentials-box {
+            background-color: #f7fafc;
+            border-left: 4px solid #4f46e5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .credential-item {
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .label {
+            color: #718096;
+            font-weight: 500;
+        }
+        .value {
+            color: #1a202c;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4f46e5;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #4338ca;
+        }
+        .important {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+            font-size: 12px;
+        }
+        .signature {
+            margin-top: 30px;
+            color: #718096;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🚀 {{ aplicacion }}</div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h1>¡Bienvenido a TalentTrack! 👋</h1>
+            <p>Tu cuenta como Administrador de RRHH ha sido creada exitosamente para <strong>{{ nombre_empresa }}</strong>.</p>
+
+            <!-- Credentials -->
+            <div class="credentials-box">
+                <p style="margin-top: 0; font-weight: 600; color: #2d3748;">Tu información de acceso inicial:</p>
+                <div class="credential-item">
+                    <span class="label">📧 Email:</span>
+                    <span class="value">{{ email }}</span>
+                </div>
+                <div class="credential-item">
+                    <span class="label">🔐 Contraseña temporal:</span>
+                    <span class="value">{{ contraseña }}</span>
+                </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="important">
+                <strong>⚠️ Importante:</strong> Por seguridad, deberás cambiar tu contraseña en tu primer acceso. La contraseña temporal expira en 24 horas.
+            </div>
+
+            <!-- Call to Action -->
+            <div class="button-container">
+                <a href="{{ url_login }}" class="btn">Acceder a TalentTrack</a>
+            </div>
+
+            <!-- Next Steps -->
+            <p><strong>Próximos pasos:</strong></p>
+            <ol>
+                <li>Accede con las credenciales proporcionadas arriba</li>
+                <li>Completa tu perfil (nombre, apellido, teléfono)</li>
+                <li>Cambia tu contraseña a una segura</li>
+                <li>¡Comienza a gestionar tu equipo!</li>
+            </ol>
+
+            <!-- Support -->
+            <p>Si tienes problemas para acceder o necesitas ayuda, no dudes en contactarnos.</p>
+        </div>
+
+        <!-- Signature -->
+        <div class="signature">
+            <p>El equipo de {{ aplicacion }}<br>
+            <em>Sistema de Gestión de Recursos Humanos</em></p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 TalentTrack. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>

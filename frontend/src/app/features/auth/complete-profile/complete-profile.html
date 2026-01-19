@@ -1,0 +1,82 @@
+<div class="complete-profile-container">
+  <div class="card">
+    <div class="card-header">
+      <h1>Completa tu perfil</h1>
+      <p>Necesitamos algunos datos adicionales para terminar de configurar tu cuenta</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="error-message">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      {{ error }}
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="perfilForm" (ngSubmit)="guardar()" class="form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="primer_nombre">Nombre *</label>
+          <input
+            id="primer_nombre"
+            type="text"
+            formControlName="primer_nombre"
+            placeholder="Tu nombre"
+            [class.error]="perfilForm.get('primer_nombre')?.invalid && perfilForm.get('primer_nombre')?.touched"
+          />
+          <span class="error-text" *ngIf="getErrorMessage('primer_nombre')">
+            {{ getErrorMessage('primer_nombre') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="primer_apellido">Apellido *</label>
+          <input
+            id="primer_apellido"
+            type="text"
+            formControlName="primer_apellido"
+            placeholder="Tu apellido"
+            [class.error]="perfilForm.get('primer_apellido')?.invalid && perfilForm.get('primer_apellido')?.touched"
+          />
+          <span class="error-text" *ngIf="getErrorMessage('primer_apellido')">
+            {{ getErrorMessage('primer_apellido') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="segundo_apellido">Segundo Apellido</label>
+          <input
+            id="segundo_apellido"
+            type="text"
+            formControlName="segundo_apellido"
+            placeholder="Tu segundo apellido (opcional)"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input
+            id="telefono"
+            type="tel"
+            formControlName="telefono"
+            placeholder="+51 999 999 999 (opcional)"
+          />
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="cargando">
+        <span *ngIf="!cargando">Completar Perfil</span>
+        <span *ngIf="cargando">Guardando...</span>
+      </button>
+    </form>
+
+    <p class="footer-text">
+      Estos datos se pueden editar en cualquier momento desde tu perfil
+    </p>
+  </div>
+</div>

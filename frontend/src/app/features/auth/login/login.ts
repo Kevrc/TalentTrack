@@ -49,10 +49,12 @@ export class LoginComponent {
 
         const rol = userToSave.rol || userToSave.role; // Prevenir errores de nombre
 
-        if (rol === 'SUPERADMIN' || rol === 'RRHH') {
-          this.router.navigate(['/admin/dashboard']); // Ruta específica
+        if (rol === 'SUPERADMIN') {
+          this.router.navigate(['/super-admin/dashboard']); // ← SuperAdmin
+        } else if (rol === 'RRHH') {
+          this.router.navigate(['/admin/dashboard']); // ← Admin RRHH
         } else if (rol === 'MANAGER') {
-          this.router.navigate(['/manager/dashboard']); // Ruta específica
+          this.router.navigate(['/manager/dashboard']);
         } else {
           // IMPORTANTE: En tus rutas definimos 'portal' como padre de 'home'
           this.router.navigate(['/portal/home']);

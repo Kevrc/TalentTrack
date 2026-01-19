@@ -1,0 +1,392 @@
+.settings-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.settings-header {
+  background: linear-gradient(135deg, #d51f36 0%, #c2353c 100%);
+  padding: 32px;
+  border-radius: 12px;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(213, 31, 54, 0.2);
+}
+
+.header-content h1 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.header-content p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Tabs Navigation */
+.tabs-container {
+  display: flex;
+  gap: 12px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0;
+}
+
+.tab-btn {
+  padding: 16px 24px;
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+}
+
+.tab-btn:hover {
+  color: #6b7280;
+}
+
+.tab-btn.active {
+  color: #d51f36;
+  border-bottom-color: #d51f36;
+}
+
+.tab-btn i {
+  font-size: 16px;
+}
+
+/* Tab Content */
+.tab-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Catalogs Section */
+.catalogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.catalog-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.catalog-card:hover {
+  border-color: #d51f36;
+  box-shadow: 0 8px 24px rgba(213, 31, 54, 0.15);
+  transform: translateY(-4px);
+}
+
+.catalog-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.catalog-icon {
+  font-size: 40px;
+  min-width: 50px;
+  text-align: center;
+}
+
+.catalog-info {
+  flex: 1;
+}
+
+.catalog-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #111827;
+}
+
+.catalog-description {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.catalog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.count-badge {
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #f8f8f8;
+  color: #d51f36;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: #ffe8eb;
+  border-color: #d51f36;
+}
+
+/* Plans Section */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.plan-card {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.plan-card:hover:not(.add-plan) {
+  border-color: #d51f36;
+  box-shadow: 0 12px 32px rgba(213, 31, 54, 0.15);
+  transform: translateY(-6px);
+}
+
+.plan-card.add-plan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  border: 2px dashed #d51f36;
+  background: #fff6f6;
+}
+
+.add-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  color: #d51f36;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-btn:hover {
+  transform: scale(1.05);
+}
+
+.add-btn i {
+  font-size: 40px;
+}
+
+.plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.plan-header h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  color: #111827;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+.status-badge.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: 800;
+  color: #d51f36;
+}
+
+.currency {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.plan-users {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.plan-users i {
+  font-size: 16px;
+  color: #d51f36;
+}
+
+.plan-features {
+  flex: 1;
+}
+
+.plan-features h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.plan-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.plan-features i {
+  color: #22c55e;
+  font-size: 14px;
+}
+
+.plan-actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.btn-edit,
+.btn-delete {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-edit {
+  background: #d51f36;
+  color: #ffffff;
+  border-color: #d51f36;
+}
+
+.btn-edit:hover {
+  background: #c2353c;
+  border-color: #c2353c;
+}
+
+.btn-delete {
+  background: transparent;
+  color: #d51f36;
+}
+
+.btn-delete:hover {
+  background: #ffe8eb;
+  border-color: #d51f36;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .catalogs-grid,
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-header {
+    padding: 24px;
+  }
+
+  .header-content h1 {
+    font-size: 24px;
+  }
+
+  .tabs-container {
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 12px 16px;
+    font-size: 12px;
+  }
+}
+

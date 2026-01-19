@@ -9,13 +9,15 @@
 .sidebar {
   width: 260px; /* Ancho fijo */
   height: 100%;
-  background-color: #ffffff;
-  border-right: 1px solid #f1f5f9;
+  background-color: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   padding: 24px;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 /* --- LOGO --- */
@@ -31,9 +33,10 @@
 
 .brand-text {
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 800;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #D51F36; /* Rojo TalentTrack */
-  letter-spacing: -0.5px;
+  letter-spacing: -0.25px;
 }
 
 /* --- MENÚ --- */
@@ -142,3 +145,31 @@
   color: #1e293b;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+
+/* Theme toggle button */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--border-color);
+  transform: scale(1.05);
+}
+
+.sidebar-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+ 

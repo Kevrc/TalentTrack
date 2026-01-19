@@ -47,6 +47,16 @@ class Usuario(AbstractUser):
         related_name='usuario_acceso'
     )
 
+    # ----- NUEVO: Perfil del usuario -----
+    primer_nombre = models.CharField(max_length=100, blank=True)
+    primer_apellido = models.CharField(max_length=100, blank=True)
+    segundo_apellido = models.CharField(max_length=100, blank=True)
+    telefono = models.CharField(max_length=20, blank=True)
+    
+    # Flag para controlar si debe completar perfil en primer login
+    primer_login_completado = models.BooleanField(default=False)
+    fecha_primer_login = models.DateTimeField(null=True, blank=True)
+
     # Configuración del Manager
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [] # Email y Password son requeridos por defecto

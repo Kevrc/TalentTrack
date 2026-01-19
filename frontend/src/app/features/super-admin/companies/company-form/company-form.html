@@ -1,0 +1,253 @@
+<div class="form-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1>{{ esEdicion ? 'Editar Empresa' : 'Nueva Empresa' }}</h1>
+      <p class="subtitle">{{ esEdicion ? 'Modifica los datos de la empresa' : 'Completa la información para crear una nueva empresa' }}</p>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="cargando" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando información...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="error-message">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    {{ error }}
+  </div>
+
+  <!-- Form -->
+  <form *ngIf="!cargando" [formGroup]="empresaForm" (ngSubmit)="guardar()" class="form-card">
+    
+    <!-- Información Básica -->
+    <section class="form-section">
+      <h2>Información Básica</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="razon_social">Razón Social *</label>
+          <input
+            id="razon_social"
+            type="text"
+            formControlName="razon_social"
+            placeholder="Nombre legal de la empresa"
+            [class.error]="empresaForm.get('razon_social')?.invalid && empresaForm.get('razon_social')?.touched"
+          />
+          <span class="error-text" *ngIf="getErrorMessage('razon_social')">
+            {{ getErrorMessage('razon_social') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="nombre_comercial">Nombre Comercial *</label>
+          <input
+            id="nombre_comercial"
+            type="text"
+            formControlName="nombre_comercial"
+            placeholder="Nombre de fantasía"
+            [class.error]="empresaForm.get('nombre_comercial')?.invalid && empresaForm.get('nombre_comercial')?.touched"
+          />
+          <span class="error-text" *ngIf="getErrorMessage('nombre_comercial')">
+            {{ getErrorMessage('nombre_comercial') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ruc_nit">RUC/NIT *</label>
+          <input
+            id="ruc_nit"
+            type="text"
+            formControlName="ruc_nit"
+            placeholder="Número de identificación fiscal"
+            [class.error]="empresaForm.get('ruc_nit')?.invalid && empresaForm.get('ruc_nit')?.touched"
+          />
+          <span class="error-text" *ngIf="getErrorMessage('ruc_nit')">
+            {{ getErrorMessage('ruc_nit') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="pais">País *</label>
+          <select
+            id="pais"
+            formControlName="pais"
+            [class.error]="empresaForm.get('pais')?.invalid && empresaForm.get('pais')?.touched"
+          >
+            <option [value]="null">Selecciona un país</option>
+            <option *ngFor="let pais of paises" [value]="pais.id">
+              {{ pais.nombre }}
+            </option>
+          </select>
+          <span class="error-text" *ngIf="getErrorMessage('pais')">
+            {{ getErrorMessage('pais') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="moneda">Moneda *</label>
+          <select
+            id="moneda"
+            formControlName="moneda"
+            [class.error]="empresaForm.get('moneda')?.invalid && empresaForm.get('moneda')?.touched"
+          >
+            <option [value]="null">Selecciona una moneda</option>
+            <option *ngFor="let moneda of monedas" [value]="moneda.id">
+              {{ moneda.nombre }} ({{ moneda.codigo }})
+            </option>
+          </select>
+          <span class="error-text" *ngIf="getErrorMessage('moneda')">
+            {{ getErrorMessage('moneda') }}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Información de Contacto -->
+    <section class="form-section">
+      <h2>Información de Contacto</h2>
+      
+      <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <textarea
+          id="direccion"
+          formControlName="direccion"
+          rows="3"
+          placeholder="Dirección completa de la empresa"
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input
+            id="telefono"
+            type="tel"
+            formControlName="telefono"
+            placeholder="+51 999 999 999"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email de Contacto</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="contacto@empresa.com"
+            [class.error]="empresaForm.get('email')?.invalid && empresaForm.get('email')?.touched"
+          />
+          <span class="error-text" *ngIf="getErrorMessage('email')">
+            {{ getErrorMessage('email') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sitio_web">Sitio Web</label>
+        <input
+          id="sitio_web"
+          type="url"
+          formControlName="sitio_web"
+          placeholder="https://www.empresa.com"
+        />
+      </div>
+    </section>
+
+    <!-- Admin RRHH -->
+    <section class="form-section highlighted">
+      <h2>Administrador de RRHH</h2>
+      <p class="section-description">
+        Se creará automáticamente un usuario con rol RRHH para esta empresa. 
+        El sistema generará una contraseña temporal y enviará las credenciales por email.
+      </p>
+      
+      <div class="form-group">
+        <label for="admin_rrhh_email">Email *</label>
+        <input
+          id="admin_rrhh_email"
+          type="email"
+          formControlName="admin_rrhh_email"
+          placeholder="admin@empresa.com"
+          [class.error]="empresaForm.get('admin_rrhh_email')?.invalid && empresaForm.get('admin_rrhh_email')?.touched"
+        />
+        <span class="error-text" *ngIf="getErrorMessage('admin_rrhh_email')">
+          {{ getErrorMessage('admin_rrhh_email') }}
+        </span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="admin_rrhh_primer_nombre">Primer Nombre *</label>
+          <input
+            id="admin_rrhh_primer_nombre"
+            type="text"
+            formControlName="admin_rrhh_primer_nombre"
+            placeholder="Ej: Juan"
+            [class.error]="empresaForm.get('admin_rrhh_primer_nombre')?.invalid && empresaForm.get('admin_rrhh_primer_nombre')?.touched"
+          />
+          <span class="error-text" *ngIf="getErrorMessage('admin_rrhh_primer_nombre')">
+            {{ getErrorMessage('admin_rrhh_primer_nombre') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="admin_rrhh_primer_apellido">Primer Apellido *</label>
+          <input
+            id="admin_rrhh_primer_apellido"
+            type="text"
+            formControlName="admin_rrhh_primer_apellido"
+            placeholder="Ej: Pérez"
+            [class.error]="empresaForm.get('admin_rrhh_primer_apellido')?.invalid && empresaForm.get('admin_rrhh_primer_apellido')?.touched"
+          />
+          <span class="error-text" *ngIf="getErrorMessage('admin_rrhh_primer_apellido')">
+            {{ getErrorMessage('admin_rrhh_primer_apellido') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="admin_rrhh_segundo_apellido">Segundo Apellido</label>
+          <input
+            id="admin_rrhh_segundo_apellido"
+            type="text"
+            formControlName="admin_rrhh_segundo_apellido"
+            placeholder="Ej: García"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="admin_rrhh_telefono">Teléfono</label>
+          <input
+            id="admin_rrhh_telefono"
+            type="tel"
+            formControlName="admin_rrhh_telefono"
+            placeholder="+51 999 999 999"
+          />
+        </div>
+      </div>
+
+      <span class="help-text">Este usuario tendrá acceso completo al módulo RRHH de la empresa. La contraseña se generará automáticamente.</span>
+    </section>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="cancelar()" [disabled]="guardando">
+        Cancelar
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="guardando || cargandoCatalogos">
+        <span *ngIf="!guardando">{{ esEdicion ? 'Guardar Cambios' : 'Crear Empresa' }}</span>
+        <span *ngIf="guardando">Guardando...</span>
+      </button>
+    </div>
+  </form>
+</div>

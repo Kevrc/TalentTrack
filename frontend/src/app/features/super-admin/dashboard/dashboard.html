@@ -1,0 +1,176 @@
+<div class="dashboard-container">
+  <div class="page-header">
+    <div>
+      <h1>Panel de Control Global – TalentTrack</h1>
+      <p class="subtitle">Este es tu informe hasta ahora</p>
+    </div>
+  </div>
+
+  <div *ngIf="cargando" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando estadísticas...</p>
+  </div>
+
+  <ng-container *ngIf="!cargando && stats">
+    <!-- Resumen en 4 cuadrantes -->
+    <div class="card summary-card">
+      <div class="summary-grid">
+        <div class="summary-item">
+          <p class="summary-label">Total de empresas</p>
+          <div class="summary-row">
+            <div class="summary-value">{{ stats.kpis.empresas_total }}</div>
+            <div class="trend" [class.trend-up]="stats.kpis.tendencia_total > 0" [class.trend-down]="stats.kpis.tendencia_total < 0">
+              <span class="trend-icon">{{ stats.kpis.tendencia_total > 0 ? '↑' : stats.kpis.tendencia_total < 0 ? '↓' : '→' }}</span>
+              <span class="trend-text">{{ stats.kpis.tendencia_total > 0 ? '+' : '' }}{{ stats.kpis.tendencia_total }}%</span>
+            </div>
+          </div>
+        </div>
+        <div class="summary-item">
+          <p class="summary-label">Empresas activas</p>
+          <div class="summary-row">
+            <div class="summary-value positive">{{ stats.kpis.empresas_activas }}</div>
+            <div class="trend" [class.trend-up]="stats.kpis.tendencia_activas > 0" [class.trend-down]="stats.kpis.tendencia_activas < 0">
+              <span class="trend-icon">{{ stats.kpis.tendencia_activas > 0 ? '↑' : stats.kpis.tendencia_activas < 0 ? '↓' : '→' }}</span>
+              <span class="trend-text">{{ stats.kpis.tendencia_activas > 0 ? '+' : '' }}{{ stats.kpis.tendencia_activas }}%</span>
+            </div>
+          </div>
+        </div>
+        <div class="summary-item">
+          <p class="summary-label">Empresas inactivas</p>
+          <div class="summary-row">
+            <div class="summary-value neutral">{{ stats.kpis.empresas_inactivas }}</div>
+            <div class="trend trend-neutral">
+              <span class="trend-text">Sin cambios</span>
+            </div>
+          </div>
+        </div>
+        <div class="summary-item">
+          <p class="summary-label">Creadas este mes</p>
+          <div class="summary-row">
+            <div class="summary-value accent">{{ stats.kpis.nuevas_mes }}</div>
+            <div class="trend" [class.trend-up]="stats.kpis.tendencia_nuevas > 0" [class.trend-down]="stats.kpis.tendencia_nuevas < 0">
+              <span class="trend-icon">{{ stats.kpis.tendencia_nuevas > 0 ? '↑' : stats.kpis.tendencia_nuevas < 0 ? '↓' : '→' }}</span>
+              <span class="trend-text">{{ stats.kpis.tendencia_nuevas > 0 ? '+' : '' }}{{ stats.kpis.tendencia_nuevas }}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila superior: crecimiento y salud -->
+    <div class="grid-two">
+      <div class="card chart-card">
+        <div class="card-header">
+          <div>
+            <h3>Creación y eliminación de empresas</h3>
+          </div>
+          <select class="mes-filter" [(ngModel)]="mesFiltroSeleccionado" (change)="actualizarGrafica()">
+            <option *ngFor="let mes of mesesDisponibles" [value]="mes.periodo">
+              {{ mes.periodo }}
+            </option>
+          </select>
+        </div>
+        <div class="chart-container large">
+          <canvas baseChart [data]="lineEmpresasData" [options]="lineEmpresasOptions" [type]="'bar'"></canvas>
+        </div>
+      </div>
+
+      <div class="card status-card">
+        <div class="card-header">
+          <div>
+            <h3>Estado de las empresas</h3>
+          </div>
+        </div>
+        <div class="status-body donut-status">
+          <div class="donut-wrapper">
+            <canvas baseChart [data]="donutEstadosData" [options]="donutEstadosOptions" [type]="'doughnut'"></canvas>
+          </div>
+          <div class="legend">
+            <div class="legend-item">
+              <span class="dot" [style.background]="donutEstadoColors[0] || '#154B52'"></span>
+              <span class="legend-text">Activas</span>
+              <span class="legend-value">{{ stats.empresas_estado.activas }}</span>
+            </div>
+            <div class="legend-item">
+              <span class="dot" [style.background]="donutEstadoColors[1] || '#ef4444'"></span>
+              <span class="legend-text">Inactivas</span>
+              <span class="legend-value">{{ stats.empresas_estado.inactivas }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila inferior: tabla y distribución por país -->
+    <div class="grid-bottom">
+      <div class="card table-card">
+        <div class="card-header">
+          <div>
+            <h3>Empresas</h3>
+          </div>
+          <div class="filters">
+            <input type="text" placeholder="Buscar empresa" [(ngModel)]="busqueda" (ngModelChange)="applyFilters()" />
+            <select [(ngModel)]="estadoFiltro" (change)="applyFilters()">
+              <option value="TODOS">Todos los estados</option>
+              <option value="ACTIVO">Activas</option>
+              <option value="INACTIVO">Inactivas</option>
+            </select>
+            <select [(ngModel)]="paisFiltro" (change)="applyFilters()">
+              <option value="TODOS">Todos los países</option>
+              <option *ngFor="let p of paisLabels" [value]="p">{{ p }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>País</th>
+                <th>Estado</th>
+                <th>Creada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let emp of empresasFiltradas | slice:0:6">
+                <td>{{ emp.nombre_comercial || emp.razon_social }}</td>
+                <td>{{ emp.pais_nombre || emp.pais || 'Sin país' }}</td>
+                <td>
+                  <span class="state" [class.state-active]="emp.estado === 'ACTIVO'" [class.state-inactive]="emp.estado === 'INACTIVO'">
+                    {{ emp.estado === 'ACTIVO' ? 'Activa' : 'Inactiva' }}
+                  </span>
+                </td>
+                <td>{{ emp.creada_el | date:'dd MMM' }}</td>
+              </tr>
+              <tr *ngIf="empresasFiltradas.length === 0">
+                <td colspan="4" class="empty-row">Sin resultados</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card map-card">
+        <div class="card-header">
+          <div>
+            <h3>Países con clientes activos</h3>
+          </div>
+        </div>
+        <div class="map-wrapper" *ngIf="mapaReady; else mapaFallback">
+          <div echarts class="echarts-map" [options]="mapaOptions"></div>
+        </div>
+        <ng-template #mapaFallback>
+          <div class="map-fallback" *ngIf="!mapaError; else mapaErrorTpl">
+            <div class="spinner small"></div>
+            <p>Cargando mapa interactivo...</p>
+          </div>
+        </ng-template>
+        <ng-template #mapaErrorTpl>
+          <div class="map-fallback error">
+            <p>No se pudo cargar el mapa.</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </ng-container>

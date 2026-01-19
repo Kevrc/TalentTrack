@@ -7,11 +7,13 @@
 
 .main-content {
   flex: 1; /* Toma todo el espacio restante a la derecha */
-  background-color: #f8fafc; /* Color de fondo gris claro de tus diseños */
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   overflow-y: auto; /* Permite scroll solo en el contenido, no en el sidebar */
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .page-container {
@@ -24,8 +26,9 @@
   display: flex;
   height: 100vh;
   width: 100%;
-  overflow: hidden; /* Evita doble scroll */
-  background-color: #F8F9FE; /* Color de fondo gris claro típico de dashboards */
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  transition: background-color 0.3s ease;
 }
 
 /* El sidebar no necesita estilos aquí si ya tiene su propio width en su componente,

@@ -20,17 +20,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'corsheaders',
-    'users',
-    'core',
-    'employees',
-    'attendance',
-    'leaves',
     'drf_yasg',
-    'performance',
 
+    # Apps del proyecto (EXPLÍCITO)
+    'apps.users.apps.UsersConfig',
+    'apps.core.apps.CoreConfig',
+    'apps.employees.apps.EmployeesConfig',
+    'apps.attendance.apps.AttendanceConfig',
+    'apps.leaves.apps.LeavesConfig',
+    'apps.performance.apps.PerformanceConfig',
+    'apps.plans.apps.PlansConfig',
 ]
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -48,7 +52,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -109,4 +113,36 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'user_id',
 }
 
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:4200').split(',')
+# CORS Configuration
+CORS_ALLOW_ALL_ORIGINS = DEBUG  # En desarrollo permitir todos los orígenes
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200',
+    'http://localhost:60253',
+    'http://127.0.0.1:4200',
+    'http://127.0.0.1:60253',
+]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+# ============================
+# EMAIL CONFIGURATION
+# ============================
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@talenttrack.com')
+
+# Frontend URL para links en emails
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:4200')

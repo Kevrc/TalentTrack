@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import TipoAusencia, SolicitudAusencia, SaldoVacaciones
-from attendance.serializers import EmpleadoResumenSerializer
-from employees.models import Empleado
+from apps.attendance.serializers import EmpleadoResumenSerializer
+from apps.employees.models import Empleado
 class EmpleadoNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Empleado
