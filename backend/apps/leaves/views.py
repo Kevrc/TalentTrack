@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, permissions
+from rest_framework.exceptions import PermissionDenied
 from .models import TipoAusencia, SolicitudAusencia
 from .serializers import TipoAusenciaSerializer, SolicitudAusenciaSerializer, ResolverSolicitudSerializer
 from apps.employees.models import Empleado
@@ -25,6 +26,10 @@ class SolicitudListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         empleado = get_object_or_404(Empleado, email=self.request.user.email)
+        
+        # Validar que RRHH/SUPERADMIN no puedan crear solicitudes
+        if self.request.user.rol in ['SUPERADMIN', 'RRHH']:
+            raise PermissionDenied("Los usuarios de RRHH no pueden solicitar vacaciones.")
         
         # Calculamos días simples (diferencia de fechas + 1)
         # Nota: En un sistema real, aquí descontarías fines de semana y feriados.
@@ -78,3 +83,27 @@ class ResponderSolicitudView(generics.UpdateAPIView):
             aprobado_por=manager,
             fecha_resolucion=timezone.now()
         )
+
+class SolicitudesEmpresaRRHHView(generics.ListAPIView):
+    """
+    Lista TODAS las solicitudes de TODOS los empleados de la empresa (para RRHH),
+    incluyendo solicitudes de managers (excepto la del propio RRHH).
+    El filtrado por estado se hace en el frontend.
+    """
+    serializer_class = SolicitudAusenciaSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        try:
+            # Buscamos al empleado que corresponde al usuario logueado (el RRHH)
+            empleado_rrhh = Empleado.objects.get(email=user.email)
+            
+            # Retornamos TODAS las solicitudes de la empresa EXCEPTO las del propio RRHH
+            return SolicitudAusencia.objects.filter(
+                empresa=empleado_rrhh.empresa
+            ).exclude(
+                empleado=empleado_rrhh
+            ).order_by('-creada_el')
+        except Empleado.DoesNotExist:
+            return SolicitudAusencia.objects.none()

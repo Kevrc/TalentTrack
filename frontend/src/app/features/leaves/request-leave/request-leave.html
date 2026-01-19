@@ -1,7 +1,11 @@
 <div class="leave-container">
     <h2>Solicitar Permiso / Vacaciones</h2>
 
-    <form (submit)="onSubmit()" class="leave-form">
+    <div *ngIf="esRRHH" class="rrhh-warning">
+        <p class="error-msg">Los usuarios de RRHH no pueden solicitar vacaciones. Por favor usa la opción "Solicitudes de Vacaciones" para gestionar las solicitudes de la empresa.</p>
+    </div>
+
+    <form (submit)="onSubmit()" class="leave-form" *ngIf="!esRRHH">
 
         <div class="form-group">
             <label>Tipo de Permiso:</label>
