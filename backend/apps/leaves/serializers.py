@@ -2,10 +2,18 @@ from rest_framework import serializers
 from .models import TipoAusencia, SolicitudAusencia, SaldoVacaciones
 from apps.attendance.serializers import EmpleadoResumenSerializer
 from apps.employees.models import Empleado
-class EmpleadoNameSerializer(serializers.ModelSerializer):
+
+class ManagerNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Empleado
-        fields = ['id', 'nombres', 'apellidos', 'foto_url']
+        fields = ['id', 'nombres', 'apellidos']
+
+class EmpleadoNameSerializer(serializers.ModelSerializer):
+    manager = ManagerNameSerializer(read_only=True)
+    
+    class Meta:
+        model = Empleado
+        fields = ['id', 'nombres', 'apellidos', 'foto_url', 'manager']
 
 # --- 2. Serializer de Tipos ---
 class TipoAusenciaSerializer(serializers.ModelSerializer):
@@ -15,7 +23,7 @@ class TipoAusenciaSerializer(serializers.ModelSerializer):
 
 # --- 3. Serializer Principal de Solicitudes ---
 class SolicitudAusenciaSerializer(serializers.ModelSerializer):
-    nombre_tipo = serializers.CharField(source='tipo_ausencia.nombre', read_only=True)
+    tipo_ausencia_nombre = serializers.CharField(source='tipo_ausencia.nombre', read_only=True)
     # Aquí usamos la clase definida arriba
     empleado = EmpleadoNameSerializer(read_only=True) 
 

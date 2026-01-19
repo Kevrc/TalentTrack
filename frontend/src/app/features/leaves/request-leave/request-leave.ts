@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Necesario para ngModel
 import { Router } from '@angular/router';
 import { LeavesService, TipoAusencia } from '../services/leaves.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-request-leave',
@@ -14,8 +15,10 @@ import { LeavesService, TipoAusencia } from '../services/leaves.service';
 export class RequestLeave implements OnInit {
   leavesService = inject(LeavesService);
   router = inject(Router);
+  authService = inject(AuthService);
 
   tipos: TipoAusencia[] = [];
+  esRRHH = false;
 
   // Modelo del formulario
   solicitud = {
@@ -30,7 +33,15 @@ export class RequestLeave implements OnInit {
   mensajeError = '';
 
   ngOnInit() {
-    this.cargarTipos();
+    const usuario = this.authService.currentUser();
+    if (usuario) {
+      this.esRRHH = usuario.rol === 'SUPERADMIN' || usuario.rol === 'RRHH';
+      if (this.esRRHH) {
+        this.mensajeError = 'Los usuarios de RRHH no pueden solicitar vacaciones.';
+      } else {
+        this.cargarTipos();
+      }
+    }
   }
 
   cargarTipos() {

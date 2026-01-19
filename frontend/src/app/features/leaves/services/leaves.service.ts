@@ -46,8 +46,13 @@ export class LeavesService {
   getMisSolicitudes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/solicitudes/`);
   }
+  
   getPendientesEquipo(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/pendientes/`);
+  }
+
+  getSolicitudesEmpresa(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/empresa/`);
   }
 
   responderSolicitud(idSolicitud: string, nuevoEstado: 'APROBADO' | 'RECHAZADO'): Observable<any> {

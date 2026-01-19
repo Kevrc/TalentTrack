@@ -1,0 +1,85 @@
+<div class="requests-container">
+  <h2>
+    {{ esRRHH ? 'Solicitudes de Vacaciones - Empresa' : (esManager ? 'Solicitudes de mi Equipo' : 'Mis Solicitudes') }}
+  </h2>
+
+  <!-- FILTROS -->
+  <div class="filtros">
+    <button
+      class="filtro-btn"
+      [class.activo]="filtroActivo === 'todas'"
+      (click)="setFiltro('todas')">
+      Todas ({{ solicitudes.length }})
+    </button>
+    <button
+      class="filtro-btn"
+      [class.activo]="filtroActivo === 'pendiente'"
+      (click)="setFiltro('pendiente')">
+      Pendientes ({{ contarPorEstado('PENDIENTE') }})
+    </button>
+    <button
+      class="filtro-btn"
+      [class.activo]="filtroActivo === 'aprobado'"
+      (click)="setFiltro('aprobado')">
+      Aprobadas ({{ contarPorEstado('APROBADO') }})
+    </button>
+    <button
+      class="filtro-btn"
+      [class.activo]="filtroActivo === 'rechazado'"
+      (click)="setFiltro('rechazado')">
+      Rechazadas ({{ contarPorEstado('RECHAZADO') }})
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="loading">
+    Cargando solicitudes...
+  </div>
+
+  <div *ngIf="!cargando && solicitudesFiltradas.length === 0" class="empty">
+    {{ esManager ? 'No hay solicitudes en este estado.' : 'No tienes solicitudes en este estado.' }}
+  </div>
+
+  <table *ngIf="!cargando && solicitudesFiltradas.length > 0">
+    <thead>
+      <tr>
+        <th *ngIf="esManager || esRRHH">Empleado</th>
+        <th *ngIf="esRRHH">Manager</th>
+        <th>Tipo</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Estado</th>
+        <th *ngIf="esManager || esRRHH">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of solicitudesFiltradas">
+        <td *ngIf="esManager || esRRHH">{{ s.empleado.nombres }} {{ s.empleado.apellidos }}</td>
+        <td *ngIf="esRRHH">
+          {{ s.empleado.manager?.nombres }} {{ s.empleado.manager?.apellidos }}
+        </td>
+        <td>{{ s.tipo_ausencia_nombre }}</td>
+        <td>{{ s.fecha_inicio | date: 'dd/MMM/yyyy' }}</td>
+        <td>{{ s.fecha_fin | date: 'dd/MMM/yyyy' }}</td>
+        <td>
+          <span [class]="getEstadoClase(s.estado)">
+            {{ s.estado }}
+          </span>
+        </td>
+        <td *ngIf="esManager || esRRHH" class="actions">
+          <button
+            class="btn approve"
+            (click)="aprobar(s.id)"
+            [disabled]="s.estado !== 'PENDIENTE'">
+            Aprobar
+          </button>
+          <button
+            class="btn reject"
+            (click)="rechazar(s.id)"
+            [disabled]="s.estado !== 'PENDIENTE'">
+            Rechazar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
